@@ -4,7 +4,7 @@ Donate link: http://www.militantmoderates.org/donate-to-militant-moderates/
 Tags: CSS,Parent Selector
 Requires at least: 4.0.0
 Tested up to: 4.2.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,12 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 It all happens 'Inside'. There are no screenshots to show.
 
 == Changelog ==
+= 1.1.1 =
+* Fixed an issue with the Any Sibling '~' Relationship Delimiter in CSS Selectors - The proper Parent element is now selected
+* Reworked Target Event handling to compartmentalize parameters
+* Added support for multiple Pseudo Classes and Pseudo Elements on Parent Selector
+* Added support for multiple Pseudo Classes on Target Element
+
 = 1.1.0 =
 * Overhauled parsing of CSS Selectors and chasing a Selector up the DOM tree to its correct Parent. Using a new technique to parse the Selector that retains 'Relationship Delimiters' such as '>', '+' and '~',
 * Resolved a number of IE8 compatibility issues.
@@ -48,5 +54,5 @@ Naming problems with the base folder of the plugin have been addressed. Prior ve
 * Initial release.
 
 == Upgrade Notice ==
-= 1.0.1 =
-Fixed naming issues with plugin base folder name. This is a MANDATORY update!
+= 1.1.0 =
+Initial Public Release - First genuine release through WordPress.org. You should upgrade if you have an older version.

@@ -1,12 +1,12 @@
 /**
  * @package militant-moderates-css-parent-selector-mmps
- * @version 1.1.0
+ * @version 1.1.1
  */
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
 Description: Adds support for the Parent Selector syntax in CSS Styles. Parent Selectors are used to apply the styling to a specific Parent element.
-Version: 1.1.0
+Version: 1.1.1
 Author: MM Techmaster
 Author URI: https://profiles.wordpress.org/mmtechmaster
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,12 +34,17 @@ jQuery(document).ready(function( $ ) {
 	CLASS = 'MMPS',
 
 	eventMap = {
-		hover: 'mouseover mouseout',
-		checked: 'click',
-		focus: 'focus blur',
 //		active: 'mousedown mouseup',
+		changed: 'change',
+		checked: 'click',
+//		click: 'click',
+		focus: 'focus blur',
+		hover: 'mouseover mouseout',
+//		mousedown: 'mousedown',
+//		mouseout: 'mouseout',
+//		mouseover: 'mouseover',
+//		mouseup: 'mouseup',
 		selected: 'change',
-		changed: 'change'
 	},
 
 	pairedEventMap = {
@@ -52,14 +57,14 @@ jQuery(document).ready(function( $ ) {
 
 	stateMap = {
 		active: ':active',
-		checked: ':checked',
+//		checked: ':checked',
 		disabled: ':disabled',
 		empty: ':empty',
 		enabled: ':enabled',
 		first_child: ':first-child',
 		first_of_type: ':first-of-type',
-		focus: ':focus',
-		hover: ':hover',
+//		focus: ':focus',
+//		hover: ':hover',
 		in_range: ':in-range',
 		invalid: ':invalid',
 		last_child: ':last-child',
@@ -95,8 +100,8 @@ jQuery(document).ready(function( $ ) {
 	},
 
 	parsed, parsedSelectors, matches, selectors, selector,
-	parent, target, child, pseudoTarget, declarations,
-	pseudoParent, childSelector, childElements,
+	parent, target, child, pseudoTargets, declarations,
+	pseudoParent, pseudoParents, childSelector, childElements,
 
 	REGEX = new RegExp((function(aryRegExp) {
 		var ret = '';
@@ -144,22 +149,33 @@ jQuery(document).ready(function( $ ) {
 					(parsedSelectors.length) && (parsedSelectors += ",");
 
 					if (/!/.test(selector) ) {
+						// Split the selector on the '!' and save results
+						var splitsel = selector.split('!');
+
 						// Parse Parent from Selector
-						parent = $.trim(selector.split('!')[0].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/)[0]);
-						// parse Pseudo Parent :before :after :hover :click etc.
-						pseudoParent = $.trim(selector.split('!')[0].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/)[1]) || []._;
+						var splitp = splitsel[0].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/);
+
+						// parse Parent and ALL Pseudo Parents :before :after :hover :click etc.
+						parent = $.trim(splitp[0]);
+						pseudoParents = splitp.slice(1);		// get all Pseudo Parents
 
 						// parse Target from Selector
-						target = $.trim(selector.split('!')[1].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/)[0]) || []._;
-						// parse Pseudo Target
-						pseudoTarget = target ? ($.trim(selector.split('!')[1].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/)[1]) || []._) : []._;
+						var splitt = splitsel[1].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/);
+
+						// parse Target and ALL Pseudo Targets
+						target = $.trim(splitt[0]) || []._;
+						pseudoTargets = splitt.slice(1);		// get all Pseudo Targets - not just first
 
 						// Build Child Selector - Same as Selector but without '!'
-						childSelector = selector.replace(/!/g, '');
-						// Remove any Parent Pseudo Classes or Elements from Child Selector
-						childSelector = childSelector.replace('::', ':').replace(parent + ':' + pseudoParent, parent);
-						// Remove any Target Pseudo Classes or Elements from Child Selector
-						childSelector = childSelector.replace('::', ':').replace(target + ':' + pseudoTarget, target);
+						childSelector = selector.replace(/!/g, '').replace('::', ':');
+						// Remove ALL Parent Pseudo Classes and Pseudo Elements from Child Selector
+						$(pseudoParents).each(function(x) {
+							childSelector = childSelector.replace( ':' + this, '' );
+						});
+						// Remove any event-type Target Pseudo Classes from Child Selector
+						$(pseudoTargets).each(function(x) {
+							if ( eventMap[ this ] ) childSelector = childSelector.replace( ':' + this, '' );
+						});
 
 						// Parse the Elements and Relationship Delimiters out of the Child Selector
 						childElements = childSelector
@@ -167,13 +183,29 @@ jQuery(document).ready(function( $ ) {
 
 						// if we have at least two elements in the selector then we can proceed
 						if (childElements.length > 1) {
-							// Gather up all the elements that match
-							child = $(childSelector);
+							var qDOM;
+							
+							do {
+								qDOM = false;			// clear our flag
+								try {
+									// Gather up all the elements that match
+									child = $(childSelector);
+								}
+								catch(err) {
+									var ep = ':' + $.trim(err.toString().match( /[\w\-]+$/i ));
+									var epp = childSelector.lastIndexOf( ep );
+									if ( epp >= 0 ) {
+										childSelector = childSelector.replace( ep, '' );
+										qDOM = true;
+									}
+								}
+							} while (qDOM);
 
 							// Time to set up events and classes from Child Elements
 							child.each(function(idx) {
 								// grab a hook to the child's current element
 								var subject = $(this);
+
 
 								// throw away the last (current) selector element
 								var tmpNodes = childElements.slice(0, -1);;
@@ -194,7 +226,13 @@ jQuery(document).ready(function( $ ) {
 										break;
 									case '~':
 										n = $.trim(tmpNodes.pop());
-										subject = subject.prev().closest(n);
+										subject = subject.prev();
+										while ( subject && ! subject.is(n) ) {
+											subject = subject.prev();
+										}
+										if ( subject ) {
+										} else {
+										}
 										break;
 									default:
 										subject = subject.closest(n);
@@ -213,18 +251,18 @@ jQuery(document).ready(function( $ ) {
 										if (e) {
 											// if we have an attach type event then build a reverse handler
 											if (pairedEventMap[e.type]) {
-												$(subject).on(pairedEventMap[e.type], function() {
-													$(subject).toggleClass(id);
-													$(subject).off(pairedEventMap[e.type]);
+												e.data.subject.on(pairedEventMap[e.type], function(oe) {
+													e.data.subject.toggleClass(e.data.id);
+													e.data.subject.off(pairedEventMap[e.type]);
 												});
 											}
 											if (singleEventMap[e.type]) {
-												$(subject).off(singleEventMap[e.type]);
+												e.data.subject.off(singleEventMap[e.type]);
 											}
 										}
 
 										// Toggle our special Class in the final subject element
-										$(subject).toggleClass(id);
+										e.data.subject.toggleClass(e.data.id);
 									};
 
 									checkStateFn = function(e) {
@@ -243,77 +281,82 @@ jQuery(document).ready(function( $ ) {
 									idx && (parsedSelectors.length) && (parsedSelectors += ",");
 									parsedSelectors += '.' + id;
 
+									// Flag set if we need to apply the CLASS to the Parent
+									var qClass = false;
+
 									// test if Parent has a Pseudo Class or Element
-									if (pseudoParent) {
-										var ppNorm = pseudoParent.replace(/\-/g, '_');
-										if (pseudoElements[ ppNorm ]) {
-											parsedSelectors += pseudoElements[ ppNorm ];
-											$(subject).toggleClass(id);
-										} else {
-											// it's one of the other Pseudo Classes :hover :click etc.
-											// Build a handler for the specified Pseudo Class
-											$(subject).on( eventMap[pseudoParent] || pseudoParent , toggleFn );
-										}
+									if (pseudoParents.length) {
+										$(pseudoParents).each(function(pidx) {
+											var ppNorm = this.replace(/\-/g, '_');
+											if (pseudoElements[ ppNorm ]) {
+												parsedSelectors += pseudoElements[ ppNorm ];
+												qClass = true;		// apply class later .. maybe
+											} else {
+												// it's one of the other Pseudo Classes :hover :click etc.
+												// Build a handler for the specified Pseudo Class
+												$(subject).on( eventMap[ this ] || this, { id: id, subject: $(subject) }, toggleFn );
+											}
+										});
 									}
 
-									if (pseudoTarget) {
-										// Target has a Pseudo Class or Pseudo Element modifier
-										var ptNorm = pseudoTarget.replace(/\-/g, '_');
+									if (pseudoTargets.length) {
+										var orgChild = $(this);
 
-										var ptParam = null;
-										if ( /\(/.test(pseudoTarget) ) {
-											// A special case Pseudo Class with a parameter
-											var pcname = pseudoTarget.split(/(\(|\))/g);
-											pcname[0] = pcname[0].replace( /\-/g, '_' );
+										$(pseudoTargets).each(function(tidx) {
+											// Target has a Pseudo Class or Pseudo Element modifier
+											var ptNorm = this.replace(/\-/g, '_');
 
-											if ( stateParamMap[ pcname[0] ] ) {
-												ptParam = stateParamMap[ pcname[0] ].replace(/\#/, pcname[1]);
-											}
-										}
+											var ptParam = null;
+											if ( /\(/.test(this) ) {
+												// A special case Pseudo Class with a parameter
+												var pcname = this.split(/(?:\(|\))/g);
+												pcname[0] = pcname[0].replace( /\-/g, '_' );
 
-										if ( pseudoElements[ ptNorm ] ) {
-											// It's a Pseudo Element ::after, ::before, etc.
-											// Ignored on the Target element
-										} else if ( eventMap[ pseudoTarget ] ) {
-											// Clear our special class if it was set as part of the Parent Pseudo Element
-											if (pseudoParent && $(subject).hasClass(id)) {
-												$(subject).toggleClass(id);
-											}
-											// An event-based Pseudo Class - Build a handler for the Event
-											$(this).on( eventMap[pseudoTarget], toggleFn );
-										} else if ( stateMap[ ptNorm ] ) {
-											// One of the Pseudo Class States
-											ptNormState = stateMap[ ptNorm ];
-
-											// Hook an event handler for changes in the Target
-											$(this).on( 'click load visibilitychange', { eState: ptNormState }, checkStateFn );
-
-											if ( $(this).is( ptNormState ) ) {
-												// The State is already set on the Target; force the class on the Subject
-												if (! ($(subject).hasClass(id)) ) {
-													$(subject).toggleClass(id);
-												}
-											} else if ( $(subject).hasClass(id) ) {
-												// Target Element does not currently have the state so Clear on Subject if set
-												$(subject).toggleClass(id);
-											}
-										} else if ( ptParam ) {
-											if ( $(this).is( ptParam ) ) {
-												// Target Element has this State, so apply our Class to the Subject
-												if (! ($(subject).hasClass(id)) ) {
-													$(subject).toggleClass(id);
+												if ( stateParamMap[ pcname[0] ] ) {
+													ptParam = stateParamMap[ pcname[0] ].replace(/\#/, pcname[1]);
 												}
 											}
-										} else {
-											// Clear our special class if it was set as part of the Parent Pseudo Element
-											if (pseudoParent && $(subject).hasClass(id)) {
-												$(subject).toggleClass(id);
+
+											if ( pseudoElements[ ptNorm ] ) {
+												// It's a Pseudo Element ::after, ::before, etc.
+												// Ignored on the Target element
+											} else if ( eventMap[ this ] ) {
+												// It's one of the special Event Pseudo Classes :hover :checked :focus
+												// Do not apply Class to the subject - Event will apply it
+												qClass = false;
+												// An event-based Pseudo Class - Build a handler for the Event
+												$(orgChild).on( eventMap[ this ], { id: id, subject: $(subject) }, toggleFn );
+											} else if ( stateMap[ ptNorm ] ) {
+												// One of the Pseudo Class States
+												ptNormState = stateMap[ ptNorm ];
+
+												// Hook an event handler for changes in the Target
+												$(orgChild).on( 'click load visibilitychange', { eState: ptNormState }, checkStateFn );
+
+												if ( $(orgChild).is( ptNormState ) ) {
+													// The State is already set on the Target; force the class on the Subject
+													qClass = true;
+												} else {
+													// Target Element does not currently have the state so Clear on Subject if set
+													qClass = false;
+												}
+											} else if ( ptParam ) {
+												if ( $(orgChild).is( ptParam ) ) {
+													// Target Element has this State, so apply our Class to the Subject
+													qClass = true;
+												}
+											} else {
+												qClass = false;
+												// An unknown Pseudo Class - DEFAULT is to build a handler for the it
+												$(orgChild).on( this.toString(), { id: id, subject: $(subject) }, toggleFn );
 											}
-											// Build a handler for the Event - Already handled those in eventMap
-											$(this).on( pseudoTarget , toggleFn );
-										}
-									} else if (! pseudoParent) {
+										});
+									} else if (! pseudoParents.length) {
 										// Simple Target with no Pseudo crap
+										qClass = true;
+									}
+
+									if (qClass) {
 										$(subject).toggleClass(id);
 									}
 								}
@@ -365,7 +408,7 @@ jQuery(document).ready(function( $ ) {
 		};
 
 		stateMap = {
-			checked: ':checked',
+//			checked: ':checked',
 			disabled: ':disabled',
 			empty: ':empty',
 			enabled: ':enabled',
@@ -376,7 +419,7 @@ jQuery(document).ready(function( $ ) {
 			valid: ':valid'
 		};
 	}
-	
+
 	$('link[rel="stylesheet"],style').each(function(i) {
 		if ($(this).is('link')) {
 			var href = $(this).attr('href');
