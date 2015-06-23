@@ -1,0 +1,193 @@
+/**
+ * @package mmParentSelector
+ * @version 1.0.0
+ */
+/*
+Plugin Name: Militant Moderates CSS Parent Selector
+Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
+Description: Adds support for the Parent Selector syntax in CSS Styles. Parent Selectors are used to apply the styling to a specific Parent element.
+Version: 1.0.0
+Author: MM Techmaster
+Author URI: https://en.gravatar.com/mmtechmaster
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPL2
+ 
+{Plugin Name} is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+any later version.
+ 
+{Plugin Name} is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+ 
+You should have received a copy of the GNU General Public License
+along with {Plugin Name}. If not, see {License URI}.
+*/
+
+/**
+li.mmps_examples span::after! a:hover{
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/bluearrow-16x14.jpg');
+}
+li.mmps_examples ul li::after! a:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg');
+}
+**/
+
+/*
+ * Some basics to clean up page presentation
+ */
+.mmps_css {
+	line-height: 1.2;
+	font-size: 10pt;
+	padding: 0 0 0 30px;
+}
+
+p.mmps_parent! a[href="#foo"] {
+	background-color: #eee;
+}
+
+pre {
+	line-height: 1.2;
+}
+
+/*
+ * All of our examples use either a table with a class name starting with 'ps-table'
+ * or a paragraph with a class name that starts with 'ps-para'. We give them all a
+ * default (arrow) cursor
+ */
+table[class^="ps-table"],
+p[class^="ps-para"] {
+	cursor: default;
+}
+
+/*
+ * All of the active cells and spans in our sample page are 
+ * given a bolder font and have a pointer (hand) cursor
+ */
+table.ps-table5 td.ps-row3.ps-col1,
+table.ps-table5 td.ps-row1.ps-col1,
+table.ps-table5 td.ps-row3.ps-col3,
+table.ps-table6 tr! td.mmps_here,
+table.ps-table7 td.ps-row3.ps-col3,
+table.ps-table7 td.ps-row3.ps-col1,
+.mmps_before, .mmps_after, .mmps_first_line, .mmps_first_letter,
+.mmps_blue_arrow, .mmps_red_arrow,
+p.ps-para10 a {
+	font-weight: bolder;
+	cursor: pointer;
+}
+/*
+ * The center cell of all the example tables is bold and has a pointer as well
+ */
+.mmps_here {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/*
+ * The rest of these are specific to each example on the Quick Start page
+ * It can be found at http://www.militantmoderates.org/mmps-quick-start/
+ */
+table.ps-table2 {
+	background-color: AliceBlue;
+}
+
+table.ps-table3 {
+	background-color: Aquamarine;
+}
+
+table.ps-table4 {
+	background-color: Cornsilk;
+}
+
+table.ps-table5 {
+	background-color: Fuchsia;
+}
+
+table.ps-table5! tr td.ps-row3.ps-col1:click {
+	background-color: red;
+}
+table.ps-table2 tr td.mmps_here,
+table.ps-table3 *! td.mmps_here,
+table.ps-table4 tr td.ps-col2,
+table.ps-table5! tr td.mmps_here:hover {
+	background-color: #ccc;
+}
+table.ps-table5! tr td.ps-row1.ps-col1:hover {
+	background-color: blue;
+}
+table.ps-table5! tr td.ps-row3.ps-col3:hover {
+	background-color: green;
+}
+table.ps-table6 {
+	background-color: Khaki;
+}
+table.ps-table6 tr:hover! td.mmps_here {
+	background-color: Yellow;
+}
+table.ps-table6 tr! td.mmps_here:hover {
+	background-color: Lime;
+}
+table.ps-table7 {
+	background-color: #eee;
+}
+table.ps-table7 tr! td.ps-row3.ps-col3:mouseout {
+	background-color: Salmon;
+}
+table.ps-table7 tr! td.ps-row3.ps-col1:mousedown {
+	background-color: PeachPuff;
+}
+.mmps_before,.mmps_after,.mmps_first_line,.mmps_first_letter {
+	background-color: #f0fff0;
+}
+p.ps-para8::before! .mmps_before {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/bluearrow-16x14.jpg');
+}
+p.ps-para8::after! .mmps_after {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg');
+}
+p.ps-para8::first-line! .mmps_first_line {
+	font-weight: bold;
+}
+p.ps-para8::first-letter! .mmps_first_letter {
+	font-weight: bold;
+	font-size: 20pt;
+}
+.mmps_blue_arrow,.mmps_red_arrow {
+	background-color: #f0f0ff;
+}
+p.ps-para9::after! .mmps_blue_arrow:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/bluearrow-16x14.jpg');
+}
+p.ps-para9::after! .mmps_red_arrow:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg');
+}
+p.ps-para9c::after! .mmps_blue_arrow:click {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/bluearrow-16x14.jpg');
+}
+p.ps-para9c::after! .mmps_red_arrow:click {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg');
+}
+.ps-para10 *! a:link {
+	background-color: initial;
+}
+.ps-para10 *! a:visited {
+	background-color: #fff0ff;
+}
+.ps-para10 *! a:focus {
+	background-color: #efe0e0;
+}
+.ps-para10 *! a:hover {
+	background-color: #fff0f0;
+}
+.ps-para10 *! a:active {
+	background-color: #f0ffff;
+}
+li.mmps_quick a[href^="#"] {
+	margin-right: 6px;
+}
+li.mmps_quick::after! a[href^="#"]:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg') ' Click';
+}
