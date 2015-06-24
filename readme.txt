@@ -11,7 +11,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
 
 == Description ==
-Getting your Theme to look exactly right is an art form. Sometimes you need more flexibility. The Militant Moderates CSS Parent Selector (or **MMPS**) plugin gives you that flexibility. MMPS adds a feature called **Parent Selectors** to standard CSS. With enhanced Parent Selector CSS Styles, you can apply desired style changes to any element in the Selector, not just the last one.
+Getting your Theme to look exactly right is an art form. Sometimes you need more flexibility. The Militant Moderates CSS Parent Selector (or **MMPS**) plugin gives you that flexibility.
+
+MMPS adds a feature called **Parent Selectors** to standard CSS. With enhanced Parent Selector CSS Styles, you can apply desired style changes to any element in the Selector, not just the last one.
 
 Parent Selectors are easy to learn too. Converting a standard CSS Selector to a Parent Selector is simply a matter of putting an exclamation mark '!' at the end of the desired Parent Element.
 
