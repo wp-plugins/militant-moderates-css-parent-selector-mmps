@@ -32,29 +32,6 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 
 It all happens 'Inside'. There are no screenshots to show.
 
-== MMPS Syntax ==
-Every CSS Style Rule has two parts: *Selector* and *Declaration*. The Selector is a *Trail of Clues* that lead to an element on an HTML page. The Declaration defines how the selected element will be styled. **MMPS* Parent Selectors are identical but they let you style **any** element along the *Trail of Clues*.
-
-#### Standard CSS Style
-
-```css
-h2, h2 ~ p {
-	margin-bottom: 12px;
-}
-```
-
-This changes the bottom margin to 12px for every `<h2>` heading element and every `<p>` paragraph element that has an `<h2>` heading as an earlier Sibling.
-
-#### MMPS Parent Selector Style
-
-```css
-h2! + p {
-	margin-bottom: 0px;
-}
-```
-
-This Parent Selector works just like CSS; it finds all `<p>` paragraphs that immediately follow an `<h2>` heading. But the exclamation mark '!' after the `<h2>` heading says *"Style this element"*. The result is that the `<h2>` heading elements will be styled, not the `<p>` paragraphs.
-
 == Changelog ==
 = 1.1.2 (in development) =
 * Changes in progress
