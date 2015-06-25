@@ -2,8 +2,8 @@
 /**
  * @package militant-moderates-css-parent-selector-mmps
  * @version 1.1.1
- * $package$
- * $version$
+ * $PACKAGE$
+ * $VERSION$
  */
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
