@@ -6,7 +6,7 @@
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
-Description: Adds support for the Parent Selector syntax in CSS Styles. Parent Selectors are used to apply the styling to a specific Parent element.
+Description: Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
 Version: 1.1.2
 Author: MM Techmaster
 Author URI: https://profiles.wordpress.org/mmtechmaster
