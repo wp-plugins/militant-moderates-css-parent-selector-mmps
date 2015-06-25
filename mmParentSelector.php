@@ -1,17 +1,13 @@
 <?php
 /**
- * #PACKAGE: #
- * #VERSION: #
- * @PACKAGE: @
- * @VERSION: @
- * $PACKAGE$
- * $VERSION$
+ * @package militant-moderates-css-parent-selector-mmps
+ * @version 1.1.2
  */
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
 Description: Adds support for the Parent Selector syntax in CSS Styles. Parent Selectors are used to apply the styling to a specific Parent element.
-Version: 1.1.1
+Version: 1.1.2
 Author: MM Techmaster
 Author URI: https://profiles.wordpress.org/mmtechmaster
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
