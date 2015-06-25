@@ -1,7 +1,7 @@
 <?php
 /**
- * @package militant-moderates-css-parent-selector-mmps
- * @version 1.1.1
+ * @PACKAGE: package militant-moderates-css-parent-selector-mmps @
+ * @VERSION: 1.1.1 @
  * $PACKAGE$
  * $VERSION$
  */
