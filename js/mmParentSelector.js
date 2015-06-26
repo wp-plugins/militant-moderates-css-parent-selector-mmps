@@ -1,12 +1,12 @@
 /**
  * @package militant-moderates-css-parent-selector-mmps
- * @version 1.1.2
+ * @version 1.1.3
  */
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
 Description: Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
-Version: 1.1.2
+Version: 1.1.3
 Author: MM Techmaster
 Author URI: https://profiles.wordpress.org/mmtechmaster
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -36,7 +36,7 @@ jQuery(document).ready(function( $ ) {
 	eventMap = {
 		active: 'focusin',
 		focus: 'focusin',
-		hover: 'mouseenter',
+		hover: 'mouseover',
 	},
 
 	pairedEventMap = {
@@ -44,7 +44,7 @@ jQuery(document).ready(function( $ ) {
 		focusin: 'focusout',
 		keydown: 'keyup',
 		mouseenter: 'mouseleave',
-		mouseover: 'mouseleave',
+		mouseover: 'mouseout',
 	},
 
 	stateMap = {
@@ -237,11 +237,11 @@ jQuery(document).ready(function( $ ) {
 										if (e) {
 											// if this is a paired event then build a reverse handler
 											if ( pairedEventMap[e.type] ) {
-												$(e.currentTarget).one( mmpsAddNamespace( pairedEventMap[e.type] ), function(oe) {
+												$(e.currentTarget).one( mmpsAddNamespace( pairedEventMap[e.type] ), { id: e.data.id, subject: $(e.data.subject) }, function(oe) {
 													// Make sure all paired event handlers are turned off, not just the one that fired
 													$(oe.currentTarget).off( mmpsAddNamespace( pairedEventMap[e.type] ) );
 													// Then toggle the Class on the Subject element
-													$(e.data.subject).toggleClass(e.data.id);
+													$(oe.data.subject).toggleClass(oe.data.id);
 												});
 											}
 										}

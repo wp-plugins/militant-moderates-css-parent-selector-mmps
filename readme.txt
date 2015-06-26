@@ -4,7 +4,7 @@ Donate link: http://www.militantmoderates.org/donate-to-militant-moderates/
 Tags: CSS,Parent Selector
 Requires at least: 4.0.0
 Tested up to: 4.2.2
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,9 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 It all happens 'Inside'. There are no screenshots to show.
 
 == Changelog ==
+= 1.1.3 =
+* Fixed issue that caused wrong Class to be removed at the end of a Paired Event: mouseover/mouseout for example
+
 = 1.1.2 =
 * Protected development version JavaScript against execution by anyone other than a site Admin - This is only an issue on the development platform where visitors to the main site might encounter errors from code in development.
 * Smoothing and sanding in various places, especially around debugging code that results in inefficiencies
