@@ -4,7 +4,7 @@ Donate link: http://www.militantmoderates.org/donate-to-militant-moderates/
 Tags: CSS,Parent Selector
 Requires at least: 4.0.0
 Tested up to: 4.2.2
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,8 +33,12 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 It all happens 'Inside'. There are no screenshots to show.
 
 == Changelog ==
-= 1.1.2 (in development) =
-* Changes in progress
+= 1.1.2 =
+* Protected development version JavaScript against execution by anyone other than a site Admin - This is only an issue on the development platform where visitors to the main site might encounter errors from code in development.
+* Smoothing and sanding in various places, especially around debugging code that results in inefficiencies
+* Added all the Event Types specified at **[W3 UI Events](http://www.w3.org/TR/DOM-Level-3-Events/#event-types-list)**
+* Added unique Namespace to all event handlers; prevents crosstalk and inadvertant event handler removal
+* Further obfuscated the MMPS "Class Prefix" used to generate unique Class Names
 
 = 1.1.1 =
 * Fixed an issue with the Any Sibling '~' Relationship Delimiter in CSS Selectors - The proper Parent element is now selected
