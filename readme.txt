@@ -33,6 +33,12 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 It all happens 'Inside'. There are no screenshots to show.
 
 == Changelog ==
+= 1.1.4 (in development) =
+* Massive rework under the event handling hood; switching to bind/unbind instead of on/off
+* Handle <a> link elements differently because of the :link and :visited behavioral differences
+* Added error handling around calls into the DOM that might fail under older browsers
+ * Changes in progress - Stay tuned for details
+
 = 1.1.3 =
 * Fixed issue that caused wrong Class to be removed at the end of a Paired Event: mouseover/mouseout for example
 

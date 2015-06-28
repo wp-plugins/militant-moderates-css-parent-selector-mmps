@@ -1,12 +1,12 @@
 /**
  * @package militant-moderates-css-parent-selector-mmps
- * @version 1.1.3
+ * @version 1.1.4
  */
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
 Description: Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
-Version: 1.1.3
+Version: 1.1.4
 Author: MM Techmaster
 Author URI: https://profiles.wordpress.org/mmtechmaster
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,15 +34,31 @@ jQuery(document).ready(function( $ ) {
 	CLASS = 'mmPpSsPrEfIx',
 
 	eventMap = {
+		abort: 'abort',
 		active: 'focusin',
+		click: 'click',
+		dblclick: 'dblclick',
 		focus: 'focusin',
+		focusout: 'focusout',
 		hover: 'mouseover',
+		keyup: 'keyup',
+		load: 'load',
+		mouseleave: 'mouseleave',
+		mousemove: 'mousemove',
+		mouseout: 'mouseout',
+		mouseup: 'mouseup',
+		resize: 'resize',
+		scroll: 'scroll',
+		select: 'select',
+		unload: 'unload',
+		visited: 'click',
+		wheel: 'wheel',
 	},
 
 	pairedEventMap = {
-		mousedown: 'mouseup mouseout mouseleave',
 		focusin: 'focusout',
 		keydown: 'keyup',
+		mousedown: 'mouseup mouseout mouseleave',
 		mouseenter: 'mouseleave',
 		mouseover: 'mouseout',
 	},
@@ -113,10 +129,10 @@ jQuery(document).ready(function( $ ) {
 				style = $.trim(matches[i]);
 
 				// parse Selector portion of Style
-				selectors = $.trim(style.split('{')[0]).split(',');
+				selectors = $.trim(style.split('{')[0]).split( /\s*,\s*/ );
 
 				// parse Declarations portion of Style
-				declarations = '{' + style.split(/\{|\}/)[1].replace(/^\s+|\s+$[\t\n\r]*/g, '') + '}';
+				declarations = '{' + style.split( /\{|\}/ )[1].replace( /^\s+|\s+$[\t\n\r]*/g, '' ) + '}';
 
 				// skip empty declarations
 				if ( declarations === '{}' ) {
@@ -134,16 +150,23 @@ jQuery(document).ready(function( $ ) {
 
 					(parsedSelectors.length) && (parsedSelectors += ",");
 
+					// Split the selector on the '!' and save results
+					var splitsel = selector.split('!');
+
 					if (/!/.test(selector) ) {
 						// Split the selector on the '!' and save results
 						var splitsel = selector.split('!');
+						
+						// recombine remaining array members in case a second '!' was included
+						if (splitsel.length > 2)
+							splitsel[1] = splitsel.slice(1).join('!');
 
 						// Parse Parent from Selector
 						var splitp = splitsel[0].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/);
 
 						// parse Parent and ALL Pseudo Parents :before :after :hover :click etc.
-						parent = $.trim(splitp[0]);
-						pseudoParents = splitp.slice(1);		// get all Pseudo Parents
+						parent = $.trim(splitp[0]);				// first member is Parent Element
+						pseudoParents = splitp.slice(1);		// all remaining members are Pseudo Classes or Elements
 
 						// parse Target from Selector
 						var splitt = splitsel[1].split(/[>~+\s]+/).reverse()[0].split(/[\:]+/);
@@ -153,14 +176,17 @@ jQuery(document).ready(function( $ ) {
 						pseudoTargets = splitt.slice(1);		// get all Pseudo Targets - not just first
 
 						// Build Child Selector - Same as Selector but without '!'
+						// Remove '!' Parent Selector designator and convert double colons to single
 						childSelector = selector.replace(/!/g, '').replace('::', ':');
+
 						// Remove ALL Parent Pseudo Classes and Pseudo Elements
-						$(pseudoParents).each(function(x) {
+						$(pseudoParents).each(function() {
 							childSelector = childSelector.replace( ':' + this, '' );
 						});
 						// Remove any event-type Target Pseudo Classes from Child Selector
-						$(pseudoTargets).each(function(x) {
-							if ( eventMap[ this ] ) childSelector = childSelector.replace( ':' + this, '' );
+						$(pseudoTargets).each(function() {
+							if ( eventMap[ this.toString() ] || pairedEventMap[ this.toString() ] )
+								childSelector = childSelector.replace( ':' + this, '' );
 						});
 
 						// Parse the Elements and Relationship Delimiters out of the Child Selector
@@ -228,8 +254,27 @@ jQuery(document).ready(function( $ ) {
 								if (subject) {
 									var id = CLASS + k++,
 
-									mmpsAddNamespace = function(eType) {
+									addNamespace = function( eType ) {
 										return eType.split(/[ ]+/).join('.e' + id + ' ') + '.e' + id;
+									},
+
+									getPseudoElement = function( ppNorm ) {
+										return pseudoElements[ ppNorm.replace(/\-/g, '_') ];
+									},
+
+									getPseudoState = function( ppNorm ) {
+										var ps = ppNorm.split( '(' );
+										if ( stateMap[ ps[0].replace(/\-/g, '_') ] )
+											return stateMap[ ps[0].replace(/\-/g, '_') ] + ps.slice(1).join( '(' );
+										return false;
+									},
+									
+									getPseudoEvent = function( ppNorm ) {
+										if ( eventMap[ ppNorm ] )
+											return eventMap[ ppNorm ];
+										else if ( pairedEventMap[ ppNorm ] )
+											return ppNorm;
+										return false;
 									},
 
 									toggleFn = function(e) {
@@ -237,9 +282,9 @@ jQuery(document).ready(function( $ ) {
 										if (e) {
 											// if this is a paired event then build a reverse handler
 											if ( pairedEventMap[e.type] ) {
-												$(e.currentTarget).one( mmpsAddNamespace( pairedEventMap[e.type] ), { id: e.data.id, subject: $(e.data.subject) }, function(oe) {
+												$(e.currentTarget).bind( addNamespace( pairedEventMap[e.type] ), { id: e.data.id, subject: $(e.data.subject) }, function(oe) {
 													// Make sure all paired event handlers are turned off, not just the one that fired
-													$(oe.currentTarget).off( mmpsAddNamespace( pairedEventMap[e.type] ) );
+													$(oe.currentTarget).unbind( addNamespace( pairedEventMap[e.type] ) );
 													// Then toggle the Class on the Subject element
 													$(oe.data.subject).toggleClass(oe.data.id);
 												});
@@ -250,6 +295,34 @@ jQuery(document).ready(function( $ ) {
 										$(e.data.subject).toggleClass(e.data.id);
 									};
 
+									checkVisitedLink = function(e) {
+										var eid = 'E#' + evidx++, qClass = false;
+										if (e) {
+											// This is a Link element, check to see if it is 'visited'
+											try {
+												if ( $(e.currentTarget).is( ':visited' ) ) {		// use target attribute instead of visited
+													if (! $(e.data.subject).hasClass( e.data.id ) ) {
+														qClass = true;		// yes, toggle our Class
+													}
+												} else {
+													if ( $(e.data.subject).hasClass( e.data.id ) ) {
+														qClass = true;		// yes, toggle our Class
+													}
+												}
+											}
+											catch(err) {
+												if ( $(e.data.subject).hasClass( e.data.id ) ) {
+													qClass = true;		// yes, toggle our Class
+												}
+											}
+										}
+
+										// Toggle our special Class in the final subject element if qClass is set
+										if ( qClass ) {
+											$(e.data.subject).toggleClass(e.data.id);
+										}
+									};
+
 									idx && (parsedSelectors.length) && (parsedSelectors += ",");
 									parsedSelectors += '.' + id;
 
@@ -258,14 +331,21 @@ jQuery(document).ready(function( $ ) {
 
 									// Loops through the Pseudo Parents and apply those that are needed
 									$(pseudoParents).each(function() {
-										var ppNorm = this.replace(/\-/g, '_');
-										if (pseudoElements[ ppNorm ]) {
-											parsedSelectors += pseudoElements[ ppNorm ];
+										var pe;
+										if ( pe = getPseudoElement( this.toString() ) ) {
+											parsedSelectors += pe;
+											qClass = true;		// apply class later .. maybe
+										} else if ( pe = getPseudoEvent( this.toString() ) ) {
+											// *** MUST check Events before States
+											// It's one of the Event Pseudo Classes :hover :checked :focus
+											$(subject).bind( addNamespace( pe ), { id: id, subject: $(subject) }, toggleFn );
+											// Do not apply Class to the subject - Event will apply it
+											qClass = false;
+										} else if ( pe = getPseudoState( this.toString() ) ) {
+											parsedSelectors += pe;
 											qClass = true;		// apply class later .. maybe
 										} else {
-											// it's one of the other Pseudo Classes :hover :click etc.
-											// Build a handler for the specified Pseudo Class
-											$(subject).on( mmpsAddNamespace( eventMap[ this ] || this ), { id: id, subject: $(subject) }, toggleFn );
+											// A non-event, non-state Pseudo - Ignore it
 										}
 									});
 
@@ -274,26 +354,32 @@ jQuery(document).ready(function( $ ) {
 
 										$(pseudoTargets).each(function() {
 											// Process each Target Pseudo Class or Pseudo Element modifier
-											var pt = this.split(/(?:\(|\))/g);
-											var ptNorm = pt[0].replace(/\-/g, '_');
-											var ptParam = stateMap[ ptNorm ] + ( pt[1] ? '(' + pt[1] + ')' : '' );
 
-											if ( pseudoElements[ ptNorm ] ) {
-												// It's a Pseudo Element ::after, ::before, etc.
-												// Ignored on the Target element; we're working on the Subject
-											} else if ( eventMap[ this ] ) {
-												// It's one of the special Event Pseudo Classes :hover :checked :focus
-												// An event-based Pseudo Class - Build a handler for the Event
-												$(orgChild).on( mmpsAddNamespace( eventMap[ this ] ), { id: id, subject: $(subject) }, toggleFn );
+											var pe;
+											if ( pe = getPseudoElement( this.toString() ) ) {
+											} else if ( this.toString() == 'visited' && $(orgChild).prop('tagName') == 'A' ) {
+												// the Target Pseudo Class is visited and this is a Link 'A' Element
+												try {
+													qClass = $(orgChild).is(':visited');		// save state of visited in Target
+												}
+												catch(err) {
+													qClass = false;
+												}
+												// Hook our special click event handler to check Link's visited status
+												$(orgChild).bind( addNamespace( 'click focus blur' ), { id: id, subject: $(subject) }, checkVisitedLink );
+											} else if ( pe = getPseudoEvent( this.toString() ) ) {
+												// *** MUST check Events before States
+
+												// It's one of the Event Pseudo Classes :hover :checked :focus
+												$(orgChild).bind( addNamespace( pe ), { id: id, subject: $(subject) }, toggleFn );
 												// Do not apply Class to the subject - Event will apply it
 												qClass = false;
-											} else if ( stateMap[ ptNorm ] ) {
+											} else if ( pe = getPseudoState( this.toString() ) ) {
+												// It's one of the State Pseudo Classes :enabled, :disabled, :link
 												// A normal or special Parameterized Pseudo Class State
 												qClass = true;
 											} else {
 												// An unknown Pseudo Class - DEFAULT is to build a handler for it
-												$(orgChild).on( mmpsAddNamespace( this.toString() ), { id: id, subject: $(subject) }, toggleFn );
-												qClass = false;
 											}
 										});
 									} else if (! pseudoParents.length ) {
@@ -353,14 +439,19 @@ jQuery(document).ready(function( $ ) {
 		};
 
 		stateMap = {
+			active: ':active',
 			disabled: ':disabled',
 			empty: ':empty',
 			enabled: ':enabled',
 			invalid: ':invalid',
+			lang: ':lang',
+			link: ':link',
+			not: ':not',
 			optional: ':optional',
 			required: ':required',
 			target: ':target',
-			valid: ':valid'
+			valid: ':valid',
+			visited: ':visited'
 		};
 	}
 
