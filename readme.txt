@@ -40,7 +40,7 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
  * Changes in progress - Stay tuned for details
 
 = 1.1.3 =
-* Fixed issue that caused wrong Class to be removed at the end of a Paired Event: mouseover/mouseout for example
+* Fixed issue that caused wrong Class to be removed at the end of a Paired Event (mouseover/mouseout for example). Resolves Support Issue at **[Anchor Hover behavior is two-state not true hover](https://wordpress.org/support/topic/anchor-hover-behavior-is-two-state-not-true-hover?replies=2)**.
 
 = 1.1.2 =
 * Protected development version JavaScript against execution by anyone other than a site Admin - This is only an issue on the development platform where visitors to the main site might encounter errors from code in development.
