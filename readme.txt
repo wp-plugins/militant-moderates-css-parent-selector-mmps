@@ -30,7 +30,7 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 
 == Screenshots ==
 
-It all happens 'Inside'. There are no screenshots to show.
+1. This screenshot shows five examples of style changes applied to the Parent Element. In this particular case the Parent is the table. The table's background color changes when the mouse hovers over cells at Row 1 : Col 1, Row 3 : Col 3, and Row 2 : Col 2. The table's background color is also changed when the mouse clicks in the cell at Row 3 : Col 1.
 
 == Changelog ==
 = 1.1.4 (in development) =
