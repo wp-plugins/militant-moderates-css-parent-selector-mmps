@@ -8,6 +8,7 @@ Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
 Description: Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
 Version: 1.2.0
+Text Domain: militant-moderates-css-parent-selector-mmps
 Author: MM Techmaster
 Author URI: https://profiles.wordpress.org/mmtechmaster
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -39,6 +40,8 @@ if (!defined('ABSPATH')) die ('No direct access allowed');
  *-------------------------------------------------------------------------------------*/
 define( 'MMPS_SCRIPT_DEV', 0 );						// set as above: 0, 1, 2
 define( 'MMPS_SCRIPT_VERSION', '1.2.0' );			// set to script version number as in header
+
+define( 'MMPS_SCRIPT_SLUG', 'militant-moderates-css-parent-selector-mmps' );
 
 function mmps_js() {
 	// This enqueues the Javascript code that supports the enhanced Parent Selector
@@ -74,10 +77,6 @@ function mmps_js() {
 		wp_enqueue_script( 'mmps_js', plugins_url( 'js/mmParentSelector.js', __FILE__ ), array( 'jquery' ), $mmps_ver );
 
 	}
-
-	if ( file_exists( plugin_dir_path( __FILE__ ) . 'js/mmParentSelector.dev.js' ) &&
-		 file_exists( plugin_dir_path( __FILE__ ) . 'css/mmParentSelector.css' ) )
-		wp_enqueue_style( 'mmps_js', plugins_url( 'css/mmParentSelector.css', __FILE__ ), array(), MMPS_SCRIPT_VERSION );
 }
 
 add_action( 'wp_enqueue_scripts', 'mmps_js' );
@@ -98,7 +97,7 @@ if(!class_exists('MMPSccss')) {
 		}
 
 		public function init() {
-			load_plugin_textdomain( 'mmps-ccss-add-custom-css', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+			load_plugin_textdomain( MMPS_SCRIPT_SLUG, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		public static function uninstall() {
@@ -111,7 +110,7 @@ if(!class_exists('MMPSccss')) {
 			if ( in_array( $post_type, $post_types )) {
 				// delegate to the WP function add_meta_box
 				add_meta_box( 'mmps_ccss_add_mmps', 
-					__( 'Parent Selector CSS', 'mmps-ccss-add-custom-css' ), 
+					__( 'Parent Selector CSS', MMPS_SCRIPT_SLUG ), 
 					array( $this, 'render_meta_box_content' ), 
 					$post_type, 'advanced', 'high'
 				);
@@ -140,32 +139,32 @@ if(!class_exists('MMPSccss')) {
 		public function render_meta_box_content( $post ) {
 			wp_nonce_field( 'single_add_mmps_box', 'mmps_ccss_add_mmps_box_nonce' );
 			$single_mmps_css = get_post_meta( $post->ID, '_single_add_mmps', true );
-			echo '<p>'.  sprintf( __( 'The normal CSS and Parent Selector CSS Rules entered here will always be scanned by MMPS and will be applied to this %s', 'mmps-ccss-add-custom-css' ), $post->post_type ). '</p> ';
+			echo '<p>'.  sprintf( __( 'The normal CSS and Parent Selector CSS Rules entered here will always be scanned by MMPS and will be applied to this %s irregardless of the MMPS Ignore settings.', MMPS_SCRIPT_SLUG ), $post->post_type ). '</p>';
 			echo '<textarea id="single_mmps_css" name="single_mmps_css" style="width:100%; min-height:200px;">' . esc_attr( $single_mmps_css ) . '</textarea>';
 		}
 
 		public function add_menu() {
 			global $mmpsccss_settings_page;
-			$mmpsccss_settings_page = add_menu_page( __('Militant Moderates Parent Selector CSS - Global Settings', 'mmps-ccss-add-custom-css'), __('MMPS', 'mmps-ccss-add-custom-css'), 'manage_options', 'mmps-ccss-add-custom-css_settings', array($this, 'create_settings_page'), plugin_dir_url( __FILE__ ) . '/images/icon.png');
+			$mmpsccss_settings_page = add_menu_page( __('Militant Moderates Parent Selector (MMPS)', MMPS_SCRIPT_SLUG), __('MMPS', MMPS_SCRIPT_SLUG), 'manage_options', 'mmps-ccss-add-custom-css_settings', array($this, 'create_settings_page'), plugin_dir_url( __FILE__ ) . '/images/icon.png');
 		}
 
 		public function create_settings_page() {
 			if (! current_user_can( 'manage_options' ) ) {
 			?>
 			<div class="wrap">
-		<h2><?php echo __('Militant Moderates Parent Selector CSS', 'mmps-ccss-add-custom-css'); ?></h2>
-		<p><?php echo __('You do not have permission to change these options.', 'mmps-ccss-add-custom-css'); ?></p>
+		<h2><?php _e('Militant Moderates Parent Selector (MMPS)', MMPS_SCRIPT_SLUG); ?></h2>
+		<p><?php _e('You do not have permission to change these options.', MMPS_SCRIPT_SLUG); ?></p>
 			</div>
 	  <?php
 			} else {
 				$this->options = get_option( 'mmpsccss_settings' );
 			?>
 			<div class="wrap">
-		<h2><?php echo __('Militant Moderates Parent Selector CSS', 'mmps-ccss-add-custom-css'); ?></h2>
+		<h2><?php _e('Militant Moderates Parent Selector (MMPS)', MMPS_SCRIPT_SLUG); ?></h2>
 		<form id="mmps_ccss_form" method="post" action="options.php">
 		<?php settings_fields( 'mmpsccss_group' ); ?>
 		<?php do_settings_sections( 'mmps-ccss-add-custom-css_settings' ); ?>
-				<?php submit_button( __('Save MMPS Settings', 'mmps-ccss-add-custom-css') ); ?>
+				<?php submit_button( __('Save MMPS Settings', MMPS_SCRIPT_SLUG) ); ?>
 				</form>
 			</div>
 	  <?php
@@ -173,20 +172,21 @@ if(!class_exists('MMPSccss')) {
 		}
 
 		public function print_parse_info() {
-			echo __('CSS Style Rules come from several different sources. Normally MMPS will scan them all<br />for Parent Selector CSS Rules. The following options allow you to choose which sources<br />will be ignored while scanning for Parent Selector CSS Rules.', 'mmps-ccss-add-custom-css');
+			echo '<p>' . __('CSS Style Rules come from several different sources. Normally MMPS will scan all sources for Parent Selector Rules. Use the following options to select which sources will be ignored by MMPS.', MMPS_SCRIPT_SLUG) . "</p>\n";
+			echo '<p>' . __('NOTE: All CSS sources will be used for normal styling. The Ignore Settings only control which sources MMPS searches for Parent Selector rules. Your pages will load faster if you put all Parent Selector Rules into the section provided below then enable both of the following Ignore options.', MMPS_SCRIPT_SLUG) . "</p>\n";
 		}
 
 		public function print_section_info() {
-			echo __('The following CSS Rules will apply to the entire web site. They may include both regular<br />CSS and MMPS Parent Selector CSS. Any Rules entered here will always be applied to every<br />Post and Page.', 'mmps-ccss-add-custom-css');
+			_e('The following CSS Rules will be applied to the entire web site. You may include both normal and Parent Selector rules. All rules entered here will always be checked for Parent Selector rules.', MMPS_SCRIPT_SLUG);
 		}
 
 		public function parse_external_input() {
 			$checked_state = isset( $this->options['mmps_ccss_parse_external'] ) ? ' checked="checked"' : '';
-			echo '<label for="mmpsccss_settings[mmps_ccss_parse_external]"><input name="mmpsccss_settings[mmps_ccss_parse_external]" id="mmpsccss_settings[mmps_ccss_parse_external]" type="checkbox"' . $checked_state . '>' . __('Check this option to IGNORE all External CSS Stylesheet files', 'mmps-ccss-add-custom-css') . '</label>';
+			echo '<label for="mmpsccss_settings[mmps_ccss_parse_external]"><input name="mmpsccss_settings[mmps_ccss_parse_external]" id="mmpsccss_settings[mmps_ccss_parse_external]" type="checkbox"' . $checked_state . '>' . __('Check this option to ignore Parent Selectors in External CSS Stylesheet files', MMPS_SCRIPT_SLUG) . '</label>';
 		}
 		public function parse_inline_input() {
 			$checked_state = isset( $this->options['mmps_ccss_parse_inline'] ) ? ' checked="checked"' : '';
-			echo '<label for="mmpsccss_settings[mmps_ccss_parse_inline]"><input name="mmpsccss_settings[mmps_ccss_parse_inline]" id="mmpsccss_settings[mmps_ccss_parse_inline]" type="checkbox"' . $checked_state . '>' . __('Check this option to IGNORE all Inline CSS Styles', 'mmps-ccss-add-custom-css') . '</label>';
+			echo '<label for="mmpsccss_settings[mmps_ccss_parse_inline]"><input name="mmpsccss_settings[mmps_ccss_parse_inline]" id="mmpsccss_settings[mmps_ccss_parse_inline]" type="checkbox"' . $checked_state . '>' . __('Check this option to ignore Parent Selectors in Inline CSS Styles', MMPS_SCRIPT_SLUG) . '</label>';
 		}
 
 		public function main_css_input() {
@@ -201,34 +201,36 @@ if(!class_exists('MMPSccss')) {
 			);
 			add_settings_section(
 					'mmpsccss_main_parse',
-					__('Select CSS sources to IGNORE while scanning for Parent Selector Rules', 'mmps-ccss-add-custom-css'),
+					__('Select CSS sources to ignore while scanning for Parent Selector Rules', MMPS_SCRIPT_SLUG),
 					array( $this, 'print_parse_info' ),
 					'mmps-ccss-add-custom-css_settings'
 			);
 			add_settings_field(
 					'mmps_ccss_parse_external',
-					__('Ignore external CSS files?', 'mmps-ccss-add-custom-css'),
+					__('Ignore External CSS files?', MMPS_SCRIPT_SLUG),
 					array( $this, 'parse_external_input' ),
 					'mmps-ccss-add-custom-css_settings',
-					'mmpsccss_main_parse'
+					'mmpsccss_main_parse',
+					array( 'label_for' => 'mmpsccss_settings[mmps_ccss_parse_external]' )
 			);
 			add_settings_field(
 					'mmps_ccss_parse_inline',
-					__('Ignore inline CSS rules?', 'mmps-ccss-add-custom-css'),
+					__('Ignore Inline CSS rules?', MMPS_SCRIPT_SLUG),
 					array( $this, 'parse_inline_input' ),
 					'mmps-ccss-add-custom-css_settings',
-					'mmpsccss_main_parse'
+					'mmpsccss_main_parse',
+					array( 'label_for' => 'mmpsccss_settings[mmps_ccss_parse_inline]' )
 			);
 
 			add_settings_section(
 					'mmpsccss_main_style',
-					__('Site-wide Parent Selector CSS Rules', 'mmps-ccss-add-custom-css'),
+					__('Site-wide Normal and Parent Selector CSS Rules', MMPS_SCRIPT_SLUG),
 					array( $this, 'print_section_info' ),
 					'mmps-ccss-add-custom-css_settings'
 			);
 			add_settings_field(
 					'mmps_ccss_main_style',
-					__('Parent Selector CSS rules', 'mmps-ccss-add-custom-css'),
+					__('Site-wide CSS rules:', MMPS_SCRIPT_SLUG),
 					array( $this, 'main_css_input' ),
 					'mmps-ccss-add-custom-css_settings',
 					'mmpsccss_main_style'
@@ -263,8 +265,8 @@ if(!class_exists('MMPSccss')) {
 		public function add_mmps() {
 			$this->options = get_option( 'mmpsccss_settings' );
 			if ( isset($this->options['mmps_ccss_main_style']) && $this->options['mmps_ccss_main_style'] != '') {
-				wp_register_style( 'mmps-ccss-add-custom-css', get_bloginfo('url') . '?display_mmps_ccss=css' );
-				wp_enqueue_style( 'mmps-ccss-add-custom-css' );
+				wp_register_style( MMPS_SCRIPT_SLUG, get_bloginfo('url') . '?display_mmps_ccss=css' );
+				wp_enqueue_style( MMPS_SCRIPT_SLUG );
 			}
 		}
 
@@ -274,7 +276,7 @@ if(!class_exists('MMPSccss')) {
 				$single_mmps_css = get_post_meta( $post->ID, '_single_add_mmps', true );
 				if ( $single_mmps_css !== '' ) {
 					$single_mmps_css = str_replace ( array( '&gt;', '&lt;' ), array( '>', '<' ), $single_mmps_css );
-					$output = "<style type=\"text/css\">\n" . $single_mmps_css . "\n</style>\n";
+					$output = "<style type=\"text/css\" mmps_ccss=\"yes\">\n" . $single_mmps_css . "\n</style>\n";
 					echo $output;
 				}
 			}
@@ -290,7 +292,7 @@ if(class_exists('MMPSccss')) {
 
 if(isset($mmpsccss)) {
 	function mmpsccss_settings_link($links) {
-		$settings_link = '<a href="admin.php?page=mmps-ccss-add-custom-css_settings">' . __('Settings', 'mmps-ccss-add-custom-css') . '</a>';
+		$settings_link = '<a href="admin.php?page=mmps-ccss-add-custom-css_settings">' . __('Settings', MMPS_SCRIPT_SLUG) . '</a>';
 		array_unshift($links, $settings_link);
 		return $links;
 	}

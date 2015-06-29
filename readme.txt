@@ -37,6 +37,7 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 * Optimizations in run-time performance greatly increase load speed
 * Added the ability to save custom CSS rules for the entire site and on a per page/post basis
 * Added options to ignore external CSS files and inline CSS Styles
+* Removed the mmParentSelector.css stylesheet from the package; it is redundant now
 * (more changes coming)
 
 = 1.1.4 (unreleased) =
