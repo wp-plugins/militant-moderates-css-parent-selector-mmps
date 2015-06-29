@@ -1,12 +1,12 @@
 /**
  * @package militant-moderates-css-parent-selector-mmps
- * @version 1.1.4
+ * @version 1.2.0
  */
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
 Description: Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
-Version: 1.1.4
+Version: 1.2.0
 Author: MM Techmaster
 Author URI: https://profiles.wordpress.org/mmtechmaster
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -26,9 +26,12 @@ You should have received a copy of the GNU General Public License
 along with {Plugin Name}. If not, see {License URI}.
 */
 
+var packageName = 'militant-moderates-css-parent-selector-mmps';
+var packageVersion = '1.2.0';
+
 jQuery(document).ready(function( $ ) {
 
-	var evidx = 0, k = 0, i, j,
+	var styleidx = -1, slctridx = 1, evidx = 0, clsidx = 0,
 
 	 // Class that's added to every styled element
 	CLASS = 'mmPpSsPrEfIx',
@@ -108,15 +111,19 @@ jQuery(document).ready(function( $ ) {
 	REGEX = new RegExp((function(aryRegExp) {
 		var ret = '';
 
-		for (var i = 0; i < aryRegExp.length; i++)
+		for (var i = 0; i < aryRegExp.length; i++) {
 			ret += aryRegExp[i].source;
+		}
 
 		return ret;
 	})([
 		/[\w\s\/\.\-\:\=\[\]\(\)\~\+\|\,\*\'\"\^$#>]*(?=!)/,
-		/[\w\s\/\.\-\:\=\[\]\(\)\~\+\|\,\*\'\"\^$#>!]*\{{1}/,
-		/[^\}]+\}{1}/
+		/[\w\s\/\.\-\:\=\[\]\(\)\~\+\|\,\*\'\"\^$#>!]*/,
+		/\{{1}[^\}]+\}{1}/
 	]), "gi");
+
+
+	// stick debug prefix function behind a console.log so it gets stripped when they get stripped
 
 	parse = function(sRawCSS) {
 		// Remove comments.
@@ -125,8 +132,8 @@ jQuery(document).ready(function( $ ) {
 		if ( matches = sRawCSS.match(REGEX) ) {
 			parsed = '';
 
-			for (i = -1; ++i < matches.length; ) {
-				style = $.trim(matches[i]);
+			for (styleidx = -1; ++styleidx < matches.length; ) {
+				style = $.trim(matches[styleidx]);
 
 				// parse Selector portion of Style
 				selectors = $.trim(style.split('{')[0]).split( /\s*,\s*/ );
@@ -145,8 +152,8 @@ jQuery(document).ready(function( $ ) {
 
 
 				parsedSelectors = '';
-				for (j = -1; ++j < selectors.length; ) {
-					selector = $.trim(selectors[j]);
+				for (slctridx = -1; ++slctridx < selectors.length; ) {
+					selector = $.trim(selectors[slctridx]);
 
 					(parsedSelectors.length) && (parsedSelectors += ",");
 
@@ -156,7 +163,7 @@ jQuery(document).ready(function( $ ) {
 					if (/!/.test(selector) ) {
 						// Split the selector on the '!' and save results
 						var splitsel = selector.split('!');
-						
+
 						// recombine remaining array members in case a second '!' was included
 						if (splitsel.length > 2)
 							splitsel[1] = splitsel.slice(1).join('!');
@@ -252,7 +259,7 @@ jQuery(document).ready(function( $ ) {
 
 								// If we successfully walked up the DOM tree and found the right parent...
 								if (subject) {
-									var id = CLASS + k++,
+									var id = CLASS + clsidx++,
 
 									addNamespace = function( eType ) {
 										return eType.split(/[ ]+/).join('.e' + id + ' ') + '.e' + id;
@@ -268,7 +275,7 @@ jQuery(document).ready(function( $ ) {
 											return stateMap[ ps[0].replace(/\-/g, '_') ] + ps.slice(1).join( '(' );
 										return false;
 									},
-									
+
 									getPseudoEvent = function( ppNorm ) {
 										if ( eventMap[ ppNorm ] )
 											return eventMap[ ppNorm ];
@@ -406,7 +413,7 @@ jQuery(document).ready(function( $ ) {
 			}
 
 			if (parsed.length)
-				$('<style type="text/css" mmps_gen="yes">' + parsed + '</style>').appendTo('head');
+				$('<style type="text/css" mmps_ver="' + packageVersion + '">' + parsed + '</style>').appendTo('head');
 
 		} else {		// else "if !matches"
 		}
@@ -455,20 +462,50 @@ jQuery(document).ready(function( $ ) {
 		};
 	}
 
-	$('link[rel="stylesheet"],style').each(function(i) {
-		if ($(this).is('link')) {
-			var href = $(this).attr('href');
+	var parseExternal = true;
+	var parseInline = true;
+	
+	$('script[src*="' + packageName + '"]').each(function() {
+		var src = $(this).attr('src').split('?');
+		if ( src[1] ) {
+			var argv = src[1].split('&');
+			for ( var j=0; j < argv.length; ++j ) {
+				var pair = argv[j].split('=');
+				if ( pair[0] == 'ver' ) {
+					pair = pair[1].split('+');
+					if ( pair[0] != packageVersion ) {
+					}
+					if ( pair[1] ) {
+						if ( pair[1].indexOf('X') < 0 )
+							parseExternal = false;
+						if ( pair[1].indexOf('I') < 0 )
+							parseInline = false;
+					} else {
+						parseExternal = parseInline = false;
+					}
+				}
+			}
+		}
+	});
+	
 
-			$.ajax({
-				type: 'GET',
-				url: href,
-				dataType: 'text'
-			}).done(function(css) {
-				parse(css);
-			}).fail(function() {
-			});
-		} else {
-			parse($(this).text());
+	$('link[rel="stylesheet"],style').each(function(i) {
+		if ( $(this).attr('mmps_rev') ) {
+		} else if ( $(this).attr('mmps_ignore') ) {
+		} else if ( $(this).is('link') ) {
+			if ( parseExternal ) {
+				var href = $(this).attr('href');
+				$.ajax({
+					type: 'GET',
+					url: href,
+					dataType: 'text'
+				}).done(function(css) {
+					parse(css);
+				}).fail(function() {
+				});
+			}
+		} else if ( parseInline ) {
+			parse( $(this).text() );
 		}
 	});
 

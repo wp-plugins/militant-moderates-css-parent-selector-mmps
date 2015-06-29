@@ -33,11 +33,17 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 1. This screenshot shows five examples of style changes applied to the Parent Element. In this particular case the Parent is the table. The table's background color changes when the mouse hovers over cells at Row 1 : Col 1, Row 3 : Col 3, and Row 2 : Col 2. The table's background color is also changed when the mouse clicks in the cell at Row 3 : Col 1.
 
 == Changelog ==
-= 1.1.4 (in development) =
+= 1.2.0 (in process) =
+* Optimizations in run-time performance greatly increase load speed
+* Added the ability to save custom CSS rules for the entire site and on a per page/post basis
+* Added options to ignore external CSS files and inline CSS Styles
+* (more changes coming)
+
+= 1.1.4 (unreleased) =
 * Massive rework under the event handling hood; switching to bind/unbind instead of on/off
 * Handle <a> link elements differently because of the :link and :visited behavioral differences
 * Added error handling around calls into the DOM that might fail under older browsers
- * Changes in progress - Stay tuned for details
+* *Version terminated - Rolled to 1.2.0*
 
 = 1.1.3 =
 * Fixed issue that caused wrong Class to be removed at the end of a Paired Event (mouseover/mouseout for example). Resolves Support Issue at **[Anchor Hover behavior is two-state not true hover](https://wordpress.org/support/topic/anchor-hover-behavior-is-two-state-not-true-hover?replies=2)**.
