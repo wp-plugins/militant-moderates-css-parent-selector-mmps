@@ -108,7 +108,7 @@ if(!class_exists('MMPSccss')) {
 			if ( in_array( $post_type, $post_types )) {
 				// delegate to the WP function add_meta_box
 				add_meta_box( 'mmps_ccss_add_mmps', 
-					__( 'Parent Selector CSS', 'militant-moderates-css-parent-selector-mmps' ), 
+					__( 'MMPS Normal and Parent Selector CSS', 'militant-moderates-css-parent-selector-mmps' ), 
 					array( $this, 'render_meta_box_content' ), 
 					$post_type, 'advanced', 'high'
 				);
@@ -137,7 +137,8 @@ if(!class_exists('MMPSccss')) {
 		public function render_meta_box_content( $post ) {
 			wp_nonce_field( 'single_add_mmps_box', 'mmps_ccss_add_mmps_box_nonce' );
 			$single_mmps_css = get_post_meta( $post->ID, '_single_add_mmps', true );
-			echo '<p>'.  sprintf( __( 'The normal CSS and Parent Selector CSS Rules entered here will always be scanned by MMPS and will be applied to this %s irregardless of the MMPS Ignore settings.', 'militant-moderates-css-parent-selector-mmps' ), $post->post_type ). '</p>';
+			/* translators: %s will be replaced with $post->post_type */
+			echo '<p>'.  sprintf( __( 'The Normal and Parent Selector CSS Rules entered here will always be scanned by MMPS and will always be applied to this %s.', 'militant-moderates-css-parent-selector-mmps' ), $post->post_type ). '</p>';
 			echo '<textarea id="single_mmps_css" name="single_mmps_css" style="width:100%; min-height:200px;">' . esc_attr( $single_mmps_css ) . '</textarea>';
 		}
 
