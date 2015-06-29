@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Militant Moderates CSS Parent Selector MMPS 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/militant-"
 "moderates-css-parent-selector-mmps\n"
-"POT-Creation-Date: 2015-06-29 18:13:38+00:00\n"
+"POT-Creation-Date: 2015-06-29 19:28:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,41 +13,49 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: mmParentSelector.php:111
+#. translators: Description of the textarea to hold page or post specific CSS
+#. rules
+#: mmParentSelector.php:112
 msgid "MMPS Normal and Parent Selector CSS"
 msgstr ""
 
 #. translators: %s will be replaced with $post->post_type
-#: mmParentSelector.php:141
+#: mmParentSelector.php:143
 msgid ""
 "The Normal and Parent Selector CSS Rules entered here will always be scanned "
 "by MMPS and will always be applied to this %s."
 msgstr ""
 
-#: mmParentSelector.php:147 mmParentSelector.php:154 mmParentSelector.php:162
+#. translators: Formal Display name of the plugin
+#: mmParentSelector.php:151 mmParentSelector.php:162 mmParentSelector.php:174
 msgid "Militant Moderates Parent Selector (MMPS)"
 msgstr ""
 
-#: mmParentSelector.php:147
+#. translators: Abbreviation for MMPS (probably does not need to change)
+#: mmParentSelector.php:153
 msgid "MMPS"
 msgstr ""
 
-#: mmParentSelector.php:155
+#. translators: Error message to user
+#: mmParentSelector.php:165
 msgid "You do not have permission to change these options."
 msgstr ""
 
-#: mmParentSelector.php:166
+#. translators: Button text to save settings
+#: mmParentSelector.php:180
 msgid "Save MMPS Settings"
 msgstr ""
 
-#: mmParentSelector.php:174
+#. translators: First paragraph of Description for the MMPS exclusion settings
+#: mmParentSelector.php:190
 msgid ""
 "CSS Style Rules come from several different sources. Normally MMPS will scan "
 "all sources for Parent Selector Rules. Use the following options to select "
 "which sources will be ignored by MMPS."
 msgstr ""
 
-#: mmParentSelector.php:175
+#. translators: Second paragraph of Description for the MMPS exclusion settings
+#: mmParentSelector.php:193
 msgid ""
 "NOTE: All CSS sources will be used for normal styling. The Ignore Settings "
 "only control which sources MMPS searches for Parent Selector rules. Your "
@@ -55,43 +63,53 @@ msgid ""
 "provided below then enable both of the following Ignore options."
 msgstr ""
 
-#: mmParentSelector.php:179
+#. translators: Description of the MMPS custom CSS Rules setting
+#: mmParentSelector.php:198
 msgid ""
 "The following CSS Rules will be applied to the entire web site. You may "
 "include both normal and Parent Selector rules. All rules entered here will "
 "always be checked for Parent Selector rules."
 msgstr ""
 
-#: mmParentSelector.php:184
+#. translators: Instructions for a Checkbox setting
+#: mmParentSelector.php:205
 msgid ""
 "Check this option to ignore Parent Selectors in External CSS Stylesheet files"
 msgstr ""
 
-#: mmParentSelector.php:188
+#. translators: Instructions for a Checkbox setting
+#: mmParentSelector.php:211
 msgid "Check this option to ignore Parent Selectors in Inline CSS Styles"
 msgstr ""
 
-#: mmParentSelector.php:203
+#. translators: Settings Section Heading for the exclusion settings
+#: mmParentSelector.php:227
 msgid "Select CSS sources to ignore while scanning for Parent Selector Rules"
 msgstr ""
 
-#: mmParentSelector.php:209
+#. translators: Checkbox setting to exclude all External CSS Stylesheets from
+#. MMPS
+#: mmParentSelector.php:234
 msgid "Ignore External CSS files?"
 msgstr ""
 
-#: mmParentSelector.php:217
+#. translators: Checkbox setting to exclude all Inline STYLEs from MMPS
+#: mmParentSelector.php:243
 msgid "Ignore Inline CSS rules?"
 msgstr ""
 
-#: mmParentSelector.php:226
+#. translators: Settings Section Heading for the MMPS custom rules
+#: mmParentSelector.php:253
 msgid "Site-wide Normal and Parent Selector CSS Rules"
 msgstr ""
 
-#: mmParentSelector.php:232
+#. translators: Name of text area that holds MMPS custom CSS rules
+#: mmParentSelector.php:260
 msgid "Site-wide CSS rules:"
 msgstr ""
 
-#: mmParentSelector.php:294
+#. translators: Link Text for the plugin's settings page
+#: mmParentSelector.php:324
 msgid "Settings"
 msgstr ""
 

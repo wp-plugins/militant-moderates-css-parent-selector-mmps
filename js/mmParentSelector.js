@@ -464,8 +464,8 @@ jQuery(document).ready(function( $ ) {
 		};
 	}
 
-	var parseExternal = true;
-	var parseInline = true;
+	var parseExternal = false,
+		parseInline = false;
 	
 	$('script[src*="' + packageName + '"]').each(function() {
 		var src = $(this).attr('src').split('?');
@@ -478,12 +478,10 @@ jQuery(document).ready(function( $ ) {
 					if ( pair[0] != packageVersion ) {
 					}
 					if ( pair[1] ) {
-						if ( pair[1].indexOf('X') < 0 )
-							parseExternal = false;
-						if ( pair[1].indexOf('I') < 0 )
-							parseInline = false;
-					} else {
-						parseExternal = parseInline = false;
+						if ( pair[1].indexOf('X') >= 0 )
+							parseExternal = true;
+						if ( pair[1].indexOf('I') >= 0 )
+							parseInline = true;
 					}
 				}
 			}

@@ -51,9 +51,9 @@ function mmps_js() {
 	// that control which sources of CSS will be parsed and which will be ignored.
 	$mmps_ver = '';
 	$mmps_ccss = get_option('mmpsccss_settings');
-	if ( !isset( $mmps_ccss[ 'mmps_ccss_parse_external' ] ) )
+	if ( isset( $mmps_ccss[ 'mmps_ccss_parse_external' ] ) )
 		$mmps_ver .= 'X';
-	if ( !isset( $mmps_ccss[ 'mmps_ccss_parse_inline' ] ) )
+	if ( isset( $mmps_ccss[ 'mmps_ccss_parse_inline' ] ) )
 		$mmps_ver .= 'I';
 	$mmps_ver = MMPS_SCRIPT_VERSION . ( $mmps_ver != '' ? '+' . $mmps_ver : '' );
 
@@ -186,29 +186,29 @@ if(!class_exists('MMPSccss')) {
 
 		public function print_parse_info() {
 			echo '<p>' . 
-				/* translators: First paragraph of Description for the MMPS exclusion settings */
-				__('CSS Style Rules come from several different sources. Normally MMPS will scan all sources for Parent Selector Rules. Use the following options to select which sources will be ignored by MMPS.', 'militant-moderates-css-parent-selector-mmps') . "</p>\n";
+				/* translators: First paragraph of Description for the MMPS inclusion settings */
+				__('CSS Style Rules come from several different sources. MMPS will normally search for Parent Selectors only in the Site-wide CSS Rules below. You can use the following options to select which additional sources will be searched by MMPS.', 'militant-moderates-css-parent-selector-mmps') . "</p>\n";
 			echo '<p>' . 
-				/* translators: Second paragraph of Description for the MMPS exclusion settings */
-				__('NOTE: All CSS sources will be used for normal styling. The Ignore Settings only control which sources MMPS searches for Parent Selector rules. Your pages will load faster if you put all Parent Selector Rules into the section provided below then enable both of the following Ignore options.', 'militant-moderates-css-parent-selector-mmps') . "</p>\n";
+				/* translators: Second paragraph of Description for the MMPS inclusion settings */
+				__('NOTE: These options do not change normal CSS processing, they only control which additional sources MMPS searches for Parent Selectors. Your pages will load faster if you put all Parent Selector rules into the Site-wide CSS Rules section below then uncheck the following Inclusion options.', 'militant-moderates-css-parent-selector-mmps') . "</p>\n";
 		}
 
 		public function print_section_info() {
 			/* translators: Description of the MMPS custom CSS Rules setting */
-			_e('The following CSS Rules will be applied to the entire web site. You may include both normal and Parent Selector rules. All rules entered here will always be checked for Parent Selector rules.', 'militant-moderates-css-parent-selector-mmps');
+			_e('The Site-wide CSS Rules will be applied to the entire web site and may include both Normal and Parent Selector rules. The rules entered here will always be searched for Parent Selectors.', 'militant-moderates-css-parent-selector-mmps');
 		}
 
 		public function parse_external_input() {
 			$checked_state = isset( $this->options['mmps_ccss_parse_external'] ) ? ' checked="checked"' : '';
 			echo '<label for="mmpsccss_settings[mmps_ccss_parse_external]"><input name="mmpsccss_settings[mmps_ccss_parse_external]" id="mmpsccss_settings[mmps_ccss_parse_external]" type="checkbox"' . $checked_state . '>' . 
 				/* translators: Instructions for a Checkbox setting */
-				__('Check this option to ignore Parent Selectors in External CSS Stylesheet files', 'militant-moderates-css-parent-selector-mmps') . '</label>';
+				__('Check this option to also scan all External CSS Stylesheet files for Parent Selectors', 'militant-moderates-css-parent-selector-mmps') . '</label>';
 		}
 		public function parse_inline_input() {
 			$checked_state = isset( $this->options['mmps_ccss_parse_inline'] ) ? ' checked="checked"' : '';
 			echo '<label for="mmpsccss_settings[mmps_ccss_parse_inline]"><input name="mmpsccss_settings[mmps_ccss_parse_inline]" id="mmpsccss_settings[mmps_ccss_parse_inline]" type="checkbox"' . $checked_state . '>' . 
 				/* translators: Instructions for a Checkbox setting */
-				__('Check this option to ignore Parent Selectors in Inline CSS Styles', 'militant-moderates-css-parent-selector-mmps') . '</label>';
+				__('Check this option to also scan all Inline CSS Styles for Parent Selectors', 'militant-moderates-css-parent-selector-mmps') . '</label>';
 		}
 
 		public function main_css_input() {
@@ -223,15 +223,15 @@ if(!class_exists('MMPSccss')) {
 			);
 			add_settings_section(
 					'mmpsccss_main_parse',
-					/* translators: Settings Section Heading for the exclusion settings */
-					__('Select CSS sources to ignore while scanning for Parent Selector Rules', 'militant-moderates-css-parent-selector-mmps'),
+					/* translators: Settings Section Heading for the inclusion settings */
+					__('Select CSS sources to include while scanning for Parent Selector Rules', 'militant-moderates-css-parent-selector-mmps'),
 					array( $this, 'print_parse_info' ),
 					'mmps-ccss-add-custom-css_settings'
 			);
 			add_settings_field(
 					'mmps_ccss_parse_external',
-					/* translators: Checkbox setting to exclude all External CSS Stylesheets from MMPS */
-					__('Ignore External CSS files?', 'militant-moderates-css-parent-selector-mmps'),
+					/* translators: Checkbox setting to include all External CSS Stylesheets in search for Parent Selectors  */
+					__('Include External CSS files?', 'militant-moderates-css-parent-selector-mmps'),
 					array( $this, 'parse_external_input' ),
 					'mmps-ccss-add-custom-css_settings',
 					'mmpsccss_main_parse',
@@ -239,8 +239,8 @@ if(!class_exists('MMPSccss')) {
 			);
 			add_settings_field(
 					'mmps_ccss_parse_inline',
-					/* translators: Checkbox setting to exclude all Inline STYLEs from MMPS */
-					__('Ignore Inline CSS rules?', 'militant-moderates-css-parent-selector-mmps'),
+					/* translators: Checkbox setting to include all Inline STYLEs in search for Parent Selectors */
+					__('Include Inline CSS rules?', 'militant-moderates-css-parent-selector-mmps'),
 					array( $this, 'parse_inline_input' ),
 					'mmps-ccss-add-custom-css_settings',
 					'mmpsccss_main_parse',

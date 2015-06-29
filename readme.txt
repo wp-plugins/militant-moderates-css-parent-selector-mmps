@@ -38,13 +38,10 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 * Added the ability to save custom CSS rules for the entire site and on a per page/post basis
 * Added options to ignore external CSS files and inline CSS Styles
 * Removed the mmParentSelector.css stylesheet from the package; it is redundant now
-* (more changes coming)
-
-= 1.1.4 (unreleased) =
 * Massive rework under the event handling hood; switching to bind/unbind instead of on/off
 * Handle <a> link elements differently because of the :link and :visited behavioral differences
 * Added error handling around calls into the DOM that might fail under older browsers
-* *Version terminated - Rolled to 1.2.0*
+* (more changes coming)
 
 = 1.1.3 =
 * Fixed issue that caused wrong Class to be removed at the end of a Paired Event (mouseover/mouseout for example). Resolves Support Issue at **[Anchor Hover behavior is two-state not true hover](https://wordpress.org/support/topic/anchor-hover-behavior-is-two-state-not-true-hover?replies=2)**.
