@@ -1,10 +1,10 @@
 === Militant Moderates CSS Parent Selector MMPS ===
 Contributors: mmtechmaster
 Donate link: http://www.militantmoderates.org/donate-to-militant-moderates/
-Tags: CSS,Parent Selector
+Tags: CSS,Parent Selector,Custom CSS,Pseudo Class,Pseudo Element
 Requires at least: 4.0.0
 Tested up to: 4.2.2
-Stable tag: 1.1.3
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,15 +33,13 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 1. This screenshot shows five examples of style changes applied to the Parent Element. In this particular case the Parent is the table. The table's background color changes when the mouse hovers over cells at Row 1 : Col 1, Row 3 : Col 3, and Row 2 : Col 2. The table's background color is also changed when the mouse clicks in the cell at Row 3 : Col 1.
 
 == Changelog ==
-= 1.2.0 (in process) =
+= 1.2.0 =
 * Optimizations in run-time performance greatly increase load speed
 * Added the ability to save custom CSS rules for the entire site and on a per page/post basis
-* Added options to ignore external CSS files and inline CSS Styles
-* Removed the mmParentSelector.css stylesheet from the package; it is redundant now
+* Added options to optionally search external CSS files and inline CSS Styles for Parent Selectors
 * Massive rework under the event handling hood; switching to bind/unbind instead of on/off
 * Handle <a> link elements differently because of the :link and :visited behavioral differences
 * Added error handling around calls into the DOM that might fail under older browsers
-* (more changes coming)
 
 = 1.1.3 =
 * Fixed issue that caused wrong Class to be removed at the end of a Paired Event (mouseover/mouseout for example). Resolves Support Issue at **[Anchor Hover behavior is two-state not true hover](https://wordpress.org/support/topic/anchor-hover-behavior-is-two-state-not-true-hover?replies=2)**.
@@ -78,5 +76,5 @@ Naming problems with the base folder of the plugin have been addressed. Prior ve
 * Initial release.
 
 == Upgrade Notice ==
-= 1.1.1 =
-This version cleans up many performance and operational issues. If you are having problems making MMPS understand a specific CSS Selector then make sure you upgrade to this version and test again.
+= 1.2.0 =
+This release is a major upgrade for MMPS. The plugin now allows entering Custom CSS rules for the entire web site as well as optional CSS for each page and post. The new Custom CSS is automatically searched for Parent Selectors, however unlike prior versions MMPS does not automatically search External CSS Stylesheet files or Inline CSS Styles. Use the MMPS Settings to include those sources if your site depends on Parent Selectors they contain.
