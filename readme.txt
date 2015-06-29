@@ -17,6 +17,8 @@ MMPS adds a feature called **Parent Selectors** to standard CSS. With enhanced P
 
 Parent Selectors are easy to learn too. Converting a standard CSS Selector to a Parent Selector is simply a matter of putting an exclamation mark '!' at the end of the desired Parent Element.
 
+_**New in 1.2.0**: MMPS now lets you set custom CSS rules that will always be searched for Parent Selectors. You may enter both site-wide rules and rules that are specific to each post or page._
+
 > Complete details are available on the **[MMPS Plugin Home Page](http://www.militantmoderates.org/mmps-quick-start/ "MMPS Quick Start")**
 
 == Installation ==
