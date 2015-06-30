@@ -39,7 +39,7 @@ if (!defined('ABSPATH')) die ('No direct access allowed');
  *	1 = All debugging stripped but NOT minified
  *	2 = Includes all debugging and NOT minified - NOT included in distribution release
  *-------------------------------------------------------------------------------------*/
-define( 'MMPS_SCRIPT_DEV', 2 );						// set as above: 0, 1, 2
+define( 'MMPS_SCRIPT_DEV', 0 );						// set as above: 0, 1, 2
 define( 'MMPS_SCRIPT_VERSION', '1.2.1' );			// set to script version number as in header
 
 function mmps_js() {
@@ -47,15 +47,17 @@ function mmps_js() {
 	// functionality that allows modification of a Parent Element's attributes using
 	// pure CSS rules. Depends on jQuery.
 	
-	// Here's where we get funky. The script version number is used to piggyback the option settings
-	// that control which sources of CSS will be parsed and which will be ignored.
-	$mmps_ver = '';
+	// In order to pass the parameters to the JavaScript, we must build up a parameter
+	// that will be appended to the .js file name when it is enqueued
+	$mmps_parm = '';
 	$mmps_ccss = get_option('mmpsccss_settings');
 	if ( isset( $mmps_ccss[ 'mmps_ccss_parse_external' ] ) )
-		$mmps_ver .= 'X';
+		$mmps_parm .= 'X';
 	if ( isset( $mmps_ccss[ 'mmps_ccss_parse_inline' ] ) )
-		$mmps_ver .= 'I';
-	$mmps_ver = MMPS_SCRIPT_VERSION . ( $mmps_ver != '' ? '+' . $mmps_ver : '' );
+		$mmps_parm .= 'I';
+		
+	$mmps_parm = ( $mmps_parm != '' ? '?inc=' . $mmps_parm : '' );
+	$mmps_ver = MMPS_SCRIPT_VERSION;
 
 	// If DEBUG mode is selected and the current user has capability to activate plugins ..
 	// AND the .dev.js full debug version is available then ...
@@ -63,16 +65,16 @@ function mmps_js() {
 				file_exists( plugin_dir_path( __FILE__ ) . 'js/mmParentSelector.dev.js' ) ) {
 		// the .dev.js version is the working copy with full debugging included
 		// it is NOT included in the standard distribution, so protect against attempts to use it
-		wp_enqueue_script( 'mmps_js', plugins_url( 'js/mmParentSelector.dev.js', __FILE__ ), array( 'jquery' ), $mmps_ver );
+		wp_enqueue_script( 'mmps_js', plugins_url( 'js/mmParentSelector.dev.js', __FILE__ ) . $mmps_parm, array( 'jquery' ), $mmps_ver );
 
 	} elseif ( MMPS_SCRIPT_DEV != 1 ) {
 		// Either in full DEBUG mode but not allowed (not an admin) or FULL version NOT specified explicitly ...
 		// the .min.js version is stripped of all debugging code and minified
-		wp_enqueue_script( 'mmps_js', plugins_url( 'js/mmParentSelector.min.js', __FILE__ ), array( 'jquery' ), $mmps_ver );
+		wp_enqueue_script( 'mmps_js', plugins_url( 'js/mmParentSelector.min.js', __FILE__ ) . $mmps_parm, array( 'jquery' ), $mmps_ver );
 
 	} else {
 		// the .js version is stripped of debugging but is NOT minified
-		wp_enqueue_script( 'mmps_js', plugins_url( 'js/mmParentSelector.js', __FILE__ ), array( 'jquery' ), $mmps_ver );
+		wp_enqueue_script( 'mmps_js', plugins_url( 'js/mmParentSelector.js', __FILE__ ) . $mmps_parm, array( 'jquery' ), $mmps_ver );
 
 	}
 }

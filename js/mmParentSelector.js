@@ -473,10 +473,11 @@ jQuery(document).ready(function( $ ) {
 			var argv = src[1].split('&');
 			for ( var j=0; j < argv.length; ++j ) {
 				var pair = argv[j].split('=');
-				if ( pair[0] == 'ver' ) {
-					pair = pair[1].split('+');
-					if ( pair[0] != packageVersion ) {
-					}
+				if ( pair[0] == 'inc' ) {
+//					pair = pair[1].split('+');
+//					if ( pair[0] != packageVersion ) {
+//						console.log( 'Version Error! : '+ pair[1] + ' != ' + packageVersion );
+//					}
 					if ( pair[1] ) {
 						if ( pair[1].indexOf('X') >= 0 )
 							parseExternal = true;
