@@ -1,13 +1,13 @@
 <?php
 /**
  * @package militant-moderates-css-parent-selector-mmps
- * @version 1.2.0
+ * @version 1.2.1
  */
 /*
 Plugin Name: Militant Moderates CSS Parent Selector MMPS
 Plugin URI: http://www.militantmoderates.org/mmps-quick-start/
 Description: Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
-Version: 1.2.0
+Version: 1.2.1
 Text Domain: militant-moderates-css-parent-selector-mmps
 Domain Path: /languages
 Author: MM Techmaster
