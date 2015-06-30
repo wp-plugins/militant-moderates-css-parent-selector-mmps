@@ -8,42 +8,47 @@ Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds CSS "Parent Selector" support to your Theme. Apply your CSS Style to Parent/Sibling elements not just the Selected element.
+MMPS adds "Parent Selector" CSS support: apply Styles to Parent elements. Add custom CSS to the website and to specific posts and pages.
 
 == Description ==
-Getting your Theme to look exactly right is an art form. Sometimes you need more flexibility. The Militant Moderates CSS Parent Selector (or **MMPS**) plugin gives you that flexibility.
+Getting your Theme to look exactly right is an art form. Sometimes you need more flexibility. The Militant Moderates CSS Parent Selector (**MMPS**) plugin gives you that flexibility.
 
-MMPS adds a feature called **Parent Selectors** to standard CSS. With enhanced Parent Selector CSS Styles, you can apply desired style changes to any element in the Selector, not just the last one.
+MMPS adds **Parent Selectors** to standard CSS. Parent Selector CSS can apply style changes to any element in the Selector, not just the last one.
 
-Parent Selectors are easy to learn too. Converting a standard CSS Selector to a Parent Selector is simply a matter of putting an exclamation mark '!' at the end of the desired Parent Element.
+Parent Selectors are easy to learn. Convert a standard CSS Selector to a Parent Selector by putting an exclamation mark '!' at the end of the Parent Element to style.
 
-_**New in 1.2.0**: MMPS now lets you set custom CSS rules that will always be searched for Parent Selectors. You may enter both site-wide rules and rules that are specific to each post or page._
+**New in 1.2.0**: _MMPS adds a place to enter custom CSS rules that will always be searched for Parent Selectors. Add CSS and Parent Selector style rules to the whole web site and to specific posts and pages._
 
-> Complete details are available on the **[MMPS Plugin Home Page](http://www.militantmoderates.org/mmps-quick-start/ "MMPS Quick Start")**
+Complete details are available on the **[MMPS Plugin Home Page](http://www.militantmoderates.org/mmps-quick-start/ "MMPS Quick Start")**
 
 == Installation ==
-1. Extract the distribution ZIP file into the '/wp-content/plugins/' folder.
-1. Verify the new folder named 'militant-moderates-css-parent-selector-mmps' is created and populated.
-1. Activate the 'Militant Moderates CSS Parent Selector MMPS' plugin through the 'Plugins' menu in WordPress.
+* Upload the Plugin to the '/wp-content/plugins/' directory
+* Activate the plugin in the WP Admin Panel » Plugins
 
 == Frequently Asked Questions ==
 = I can't make the Parent Selector Style work =
 Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is activated using the Plugins menu in WordPress. If it is properly enabled, try testing your Style without the exclamation mark '!' modifier. Make sure the Style works and is applied to the Child element. Once you have made sure the Selector and Style rules work then put the '!' back into the Selector and try again.
 
+= Can I add custom CSS to my site with MMPS? =
+Yes. Space is provided to enter custom CSS *and* Parent Selector style rules to the entire website. Specific posts and pages may also have their own custom CSS.
+
+= Will MMPS recognize Parent Selectors I add to my Theme or using other custom CSS plugins? =
+Yes. MMPS will always search within its own custom CSS rules, but it can be configured to read external stylesheets and inline CSS as well.
+
 == Screenshots ==
 
-1. This screenshot shows five examples of style changes applied to the Parent Element. In this particular case the Parent is the table. The table's background color changes when the mouse hovers over cells at Row 1 : Col 1, Row 3 : Col 3, and Row 2 : Col 2. The table's background color is also changed when the mouse clicks in the cell at Row 3 : Col 1.
+1. This screenshot shows five examples of style changes applied to the Parent Element, in this case a table. The table's background color changes when the mouse `hovers` over the cells at (Row:Column) 1:1, 3:3, and 2:2. The color also changes when the mouse `clicks` in the cell at 3:1.
 
-2. The MMPS plugin settings screen allows you to add custom CSS and Parent Selector Rules to your site. The custom CSS Rules are applied to your site exactly as any other CSS Rules. However any Parent Selector Rules will also be processed by MMPS. If you have added Parent Selector Rules to other CSS sources then you can also configure MMPS to scan them as well.
+2. This screenshot shows the MMPS plugin settings screen where you add custom CSS and Parent Selector Rules to your site. The custom CSS Rules are applied to your site exactly as any other CSS Rules, however any Parent Selector Rules will also be processed by MMPS. If you have added Parent Selector Rules to other CSS sources then you can also configure MMPS to scan them as well.
 
 == Changelog ==
 = 1.2.0 =
-* Optimizations in run-time performance greatly increase load speed
 * Added the ability to save custom CSS rules for the entire site and on a per page/post basis
-* Added options to optionally search external CSS files and inline CSS Styles for Parent Selectors
+* Added options to search external CSS files and inline CSS Styles for Parent Selector styles
 * Massive rework under the event handling hood; switching to bind/unbind instead of on/off
-* Handle <a> link elements differently because of the :link and :visited behavioral differences
+* Handle `<a>` link elements differently because of the `:link` and `:visited` behavioral differences
 * Added error handling around calls into the DOM that might fail under older browsers
+* Optimizations in run-time performance greatly increase load speed
 
 = 1.1.3 =
 * Fixed issue that caused wrong Class to be removed at the end of a Paired Event (mouseover/mouseout for example). Resolves Support Issue at **[Anchor Hover behavior is two-state not true hover](https://wordpress.org/support/topic/anchor-hover-behavior-is-two-state-not-true-hover?replies=2)**.
@@ -81,4 +86,4 @@ Naming problems with the base folder of the plugin have been addressed. Prior ve
 
 == Upgrade Notice ==
 = 1.2.0 =
-This release is a major upgrade for MMPS. The plugin now allows entering Custom CSS rules for the entire web site as well as optional CSS for each page and post. The new Custom CSS is automatically searched for Parent Selectors, however unlike prior versions MMPS does not automatically search External CSS Stylesheet files or Inline CSS Styles. Use the MMPS Settings to include those sources if your site depends on Parent Selectors they contain.
+This release is a major upgrade for MMPS. It now allows adding Custom CSS rules to the entire web site as well as for specific pages and posts. The custom CSS is always searched for Parent Selectors, however MMPS can search External CSS Stylesheets or Inline CSS Styles.
