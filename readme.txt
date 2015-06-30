@@ -34,6 +34,8 @@ Double-check that the **Militant Moderates CSS Parent Selector MMPS** plugin is 
 
 1. This screenshot shows five examples of style changes applied to the Parent Element. In this particular case the Parent is the table. The table's background color changes when the mouse hovers over cells at Row 1 : Col 1, Row 3 : Col 3, and Row 2 : Col 2. The table's background color is also changed when the mouse clicks in the cell at Row 3 : Col 1.
 
+2. The MMPS plugin settings screen allows you to add custom CSS and Parent Selector Rules to your site. The custom CSS Rules are applied to your site exactly as any other CSS Rules. However any Parent Selector Rules will also be processed by MMPS. If you have added Parent Selector Rules to other CSS sources then you can also configure MMPS to scan them as well.
+
 == Changelog ==
 = 1.2.0 =
 * Optimizations in run-time performance greatly increase load speed
