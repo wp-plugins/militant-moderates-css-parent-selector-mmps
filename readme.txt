@@ -42,12 +42,11 @@ Yes. MMPS will always search within its own custom CSS rules, but it can be conf
 2. This screenshot shows the MMPS plugin settings screen where you add custom CSS and Parent Selector Rules to your site. The custom CSS Rules are applied to your site exactly as any other CSS Rules, however any Parent Selector Rules will also be processed by MMPS. If you have added Parent Selector Rules to other CSS sources then you can also configure MMPS to scan them as well.
 
 == Changelog ==
-= 1.2.1 (development) =
+= 1.2.1 =
 * Changed parameter passing method for sending run-time options to JavaScript
 * Massive rework on Action and Filter hooks; sequence makes more sense now
 * Moved MMPS Settings from main menu on Admin bar into a submenu in General Settings
 * Removed the /images sub-folder as it's no longer used for the MMPS Settings menu
-* (more changes coming)
 
 = 1.2.0 =
 * Added the ability to save custom CSS rules for the entire site and on a per page/post basis
