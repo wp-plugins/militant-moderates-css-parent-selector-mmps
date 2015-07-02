@@ -43,6 +43,10 @@ Yes. MMPS will always search within its own custom CSS rules, but it can be conf
 
 == Changelog ==
 = 1.2.1 (development) =
+* Changed parameter passing method for sending run-time options to JavaScript
+* Massive rework on Action and Filter hooks; sequence makes more sense now
+* Moved MMPS Settings from main menu on Admin bar into a submenu in General Settings
+* Removed the /images sub-folder as it's no longer used for the MMPS Settings menu
 * (more changes coming)
 
 = 1.2.0 =

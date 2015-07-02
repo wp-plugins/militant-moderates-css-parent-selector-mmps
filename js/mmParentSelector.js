@@ -28,8 +28,8 @@ You should have received a copy of the GNU General Public License
 along with {Plugin Name}. If not, see {License URI}.
 */
 
-var packageName = 'militant-moderates-css-parent-selector-mmps';
-var packageVersion = '1.2.1';
+var mmps_packageName = 'militant-moderates-css-parent-selector-mmps';
+var mmps_packageVersion = '1.2.1';
 
 jQuery(document).ready(function( $ ) {
 
@@ -415,30 +415,26 @@ jQuery(document).ready(function( $ ) {
 			}
 
 			if (parsed.length)
-				$('<style type="text/css" mmps_ver="' + packageVersion + '">' + parsed + '</style>').appendTo('head');
+				$('<style type="text/css" mmps_ver="' + mmps_packageVersion + '">' + parsed + '</style>').appendTo('head');
 
 		} else {		// else "if !matches"
 		}
 	};					// end "parse function"
 
-	navigator.browserInfo = (function() {
-		var ua = navigator.userAgent, tem,
-		M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-		if ( /trident/i.test(M[1]) ) {
-			tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-			return 'IE '+(tem[1] || '');
-		}
-		if (M[1] === 'Chrome'){
-			tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
-			if ( tem != null )
-				return tem.slice(1).join(' ').replace('OPR', 'Opera');
-		}
-		M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-		if ( (tem = ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
-		return { 'browser': M[0], 'version': M[1] };;
-	})();
+	var parseExternal = false,
+		parseInline = false,
+		oldBrowser = false,
+		mmpsVersion;
+	
+	if (mmps_ExternalOptions) {
+		mmpsVersion = mmps_ExternalOptions['version'];
+		parseExternal = ( mmps_ExternalOptions['external'] && mmps_ExternalOptions['external'] != 0 );
+		parseInline = ( mmps_ExternalOptions['inline'] && mmps_ExternalOptions['inline'] != 0 );
+		oldBrowser = ( mmps_ExternalOptions['browser'] && mmps_ExternalOptions['browser'] != 0 );
+	}
 
-	if ( navigator.browserInfo.browser == "MSIE" && navigator.browserInfo.version <= 8 ) {
+
+	if ( oldBrowser ) {
 		pseudoElements = {
 			after: ':after',
 			before: ':before',
@@ -463,32 +459,6 @@ jQuery(document).ready(function( $ ) {
 			visited: ':visited'
 		};
 	}
-
-	var parseExternal = false,
-		parseInline = false;
-	
-	$('script[src*="' + packageName + '"]').each(function() {
-		var src = $(this).attr('src').split('?');
-		if ( src[1] ) {
-			var argv = src[1].split('&');
-			for ( var j=0; j < argv.length; ++j ) {
-				var pair = argv[j].split('=');
-				if ( pair[0] == 'inc' ) {
-//					pair = pair[1].split('+');
-//					if ( pair[0] != packageVersion ) {
-//						console.log( 'Version Error! : '+ pair[1] + ' != ' + packageVersion );
-//					}
-					if ( pair[1] ) {
-						if ( pair[1].indexOf('X') >= 0 )
-							parseExternal = true;
-						if ( pair[1].indexOf('I') >= 0 )
-							parseInline = true;
-					}
-				}
-			}
-		}
-	});
-	
 
 	$('link[rel="stylesheet"],style').each(function(i) {
 		if ( $(this).attr('mmps_ignore') ) {
