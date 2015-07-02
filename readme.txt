@@ -4,7 +4,7 @@ Donate link: http://www.militantmoderates.org/donate-to-militant-moderates/
 Tags: CSS,Parent Selector,Custom CSS,Pseudo Class,Pseudo Element
 Requires at least: 4.0.0
 Tested up to: 4.2.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,5 +92,5 @@ Naming problems with the base folder of the plugin have been addressed. Prior ve
 * Initial release.
 
 == Upgrade Notice ==
-= 1.2.0 =
-This release is a major upgrade for MMPS. It now allows adding Custom CSS rules to the entire web site as well as for specific pages and posts. The custom CSS is always searched for Parent Selectors, however MMPS can search External CSS Stylesheets or Inline CSS Styles.
+= 1.2.1 =
+Moved MMPS from main Admin menu to a sub-menu of Settings. More improvements in load speed and less overhead on WordPress.
