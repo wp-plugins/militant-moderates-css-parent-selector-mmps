@@ -43,7 +43,9 @@ Yes. MMPS will always search within its own custom CSS rules, but it can be conf
 
 == Changelog ==
 = 1.2.2 (development) =
-* (changes pending)
+* Fixed link from Plugin admin to MMPS Settings - 'MMPS' was not highlighted in the Settings menu.
+* Added a 'Please Review' section and link at the top of the Settings page.
+* (more changes pending)
 
 = 1.2.1 =
 * Changed parameter passing method for sending run-time options to JavaScript
@@ -94,5 +96,5 @@ Naming problems with the base folder of the plugin have been addressed. Prior ve
 * Initial release.
 
 == Upgrade Notice ==
-= 1.2.1 =
-Moved MMPS from main Admin menu to a sub-menu of Settings. More improvements in load speed and less overhead on WordPress.
+= 1.2.2 =
+General bug cleanup. We recommend you upgrade, but this revision contains only cosmetic fixes.
