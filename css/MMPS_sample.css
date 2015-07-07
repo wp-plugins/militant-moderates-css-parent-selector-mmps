@@ -1,0 +1,271 @@
+/**
+	Sample CSS stylesheet that includes the various Parent Selector
+	rules used on the Militant Moderates web site.
+**/
+
+h1, h2, h3, h4, h5, h6 { margin-bottom: 5px; }
+.entry-container .entry-content p { margin-left: 4px; }
+.nav-primary { background-color: #444; }
+.nav-primary .search-form { padding: 10px 40px; }
+.nav-primary .search-field {
+	border-width: 4px;
+	border-color: #000;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing:    border-box;
+	box-sizing:         border-box;
+	width:  100%;
+}
+.nav-primary .search-field:focus { border-color: #444; color: #000; }
+header#masthead {
+	margin-top: 20px;
+	padding: 40px 0px;
+	background: -webkit-linear-gradient(top, #eee, #666, #888); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom, #eee, #666, #888); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom, #eee, #666, #888); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(bottom, #eee, #666, #888); /* Standard syntax (must be last) */
+}
+figure.featured-homepage-image a img.pngfix.wp-post-image { width: 150px; height: 84.43px; }
+div#content.site-content { border-bottom: 2px solid #aaa; }
+aside.sidebar.sidebar-primary.widget-area { background-color: #eee; border: 6px outset #ccc; }
+#featured-content {
+	background-color: #eee;
+	border-bottom: 3px outset #fff;
+	background: -webkit-linear-gradient(bottom, #eee, #fff, #fff, #fff, #fff, #fff); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(top, #eee, #fff, #fff, #fff, #fff, #fff); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(top, #eee, #fff, #fff, #fff, #fff, #fff); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(top, #eee, #fff, #fff, #fff, #fff, #fff); /* Standard syntax (must be last) */
+}
+#featured-content .entry-container { margin-top: 8px; }
+div.featured-content-wrap > article.featured-page-content { margin-bottom: 8px; }
+#featured-content.featured-page-content { padding-top: 8px; }
+div#site-branding.logo-right { padding: 0px 20px; }
+article > div.entry-container > div.entry-excerpt { display: none; }
+aside.sidebar-header-right { display: none; }
+.archive-post-wrap, .page-header .page-title { border-bottom: 1px solid #ccc; }
+.hentry { margin: 0px; }
+.offsite-link {
+	background-attachment: scroll, scroll;
+	background-blend-mode: normal, normal;
+	background-clip: border-box, border-box;
+	background-color: rgba(0, 0, 0, 0);
+	background-image: linear-gradient(transparent, transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%3E%3Cg%20transform%3D%22translate%28-826.429%20-698.791%29%22%3E%3Crect%20width%3D%225.982%22%20height%3D%225.982%22%20x%3D%22826.929%22%20y%3D%22702.309%22%20fill%3D%22%23fff%22%20stroke%3D%22%2306c%22%2F%3E%3Cg%3E%3Cpath%20d%3D%22M831.194%20698.791h5.234v5.391l-1.571%201.545-1.31-1.31-2.725%202.725-2.689-2.689%202.808-2.808-1.311-1.311z%22%20fill%3D%22%2306f%22%2F%3E%3Cpath%20d%3D%22M835.424%20699.795l.022%204.885-1.817-1.817-2.881%202.881-1.228-1.228%202.881-2.881-1.851-1.851z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E);
+	background-origin: padding-box, padding-box;
+	background-position: 100% 50%, 100% 50%;
+	background-repeat: no-repeat, no-repeat;
+	background-size: auto, auto;
+	padding-right: 12px;
+}
+table.mm-references td { border: 0px; padding: 0px 6px; }
+p! a[href^="#ref-"] { background-color: #f0f0f8; }
+table { margin-bottom: 6px; }
+
+ul.mmps_menu {
+	font-family: Arial, Verdana;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul.mmps_menu li {
+	display: block;
+	position: relative;
+	float: left;
+}
+li ul.mmps_menu { display: none; }
+ul.mmps_menu li a {
+	display: block;
+	text-decoration: none;
+	color: black;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background: #D4E6EC;
+	margin-left: 1px;
+	white-space: nowrap;
+}
+ul.mmps_menu li a:hover { color: #fff; background: #888; }
+li:hover ul.mmps_menu {
+	display: block;
+	position: absolute;
+}
+li.mmps_menu:hover li {
+	float: none;
+	font-size: 12px;
+}
+li.mmps_menu:hover a { background: #B2D3DE; }
+li.mmps_menu:hover li a:hover {
+	background: #C5DFE7;
+}
+ul.mmps_menu_top {
+	margin-left: 0px;
+	margin-bottom: 4pt;
+	padding-bottom: 8pt;
+}
+li.menu-item! a[href*="donate-to"] { float: right; text-align:right; }
+ul#menu-home { width: 90%; }
+
+/*
+ * Some basics to clean up page presentation
+ */
+.mmps_css {
+	line-height: 1.2;
+	font-size: 10pt;
+	padding: 0 0 0 30px;
+}
+
+p.mmps_parent! a[href="#foo"] {
+	background-color: #eee;
+}
+
+pre {
+	line-height: 1.2;
+}
+
+/*
+ * All of our examples use either a table with a class name starting with 'ps-table'
+ * or a paragraph with a class name that starts with 'ps-para'. We give them all a
+ * default (arrow) cursor
+ */
+table[class^="ps-table"],
+p[class^="ps-para"] {
+	cursor: default;
+}
+
+/*
+ * All of the active cells and spans in our sample page are 
+ * given a bolder font and have a pointer (hand) cursor
+ */
+table.ps-table5 td.ps-row3.ps-col1,
+table.ps-table5 td.ps-row1.ps-col1,
+table.ps-table5 td.ps-row3.ps-col3,
+table.ps-table6 tr! td.mmps_here,
+table.ps-table7 td.ps-row3.ps-col3,
+table.ps-table7 td.ps-row3.ps-col1,
+.mmps_before, .mmps_after, .mmps_first_line, .mmps_first_letter,
+.mmps_blue_arrow, .mmps_red_arrow,
+p.ps-para10 a {
+	font-weight: bolder;
+	cursor: pointer;
+}
+/*
+ * The center cell of all the example tables is bold and has a pointer as well
+ */
+.mmps_here {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/*
+ * The rest of these are specific to each example on the Quick Start page
+ * It can be found at http://www.militantmoderates.org/mmps-quick-start/
+ */
+table.ps-table2 {
+	background-color: AliceBlue;
+}
+
+table.ps-table3 {
+	background-color: Aquamarine;
+}
+
+table.ps-table4 {
+	background-color: Cornsilk;
+}
+
+table.ps-table5 {
+	background-color: Fuchsia;
+}
+
+table.ps-table5! tr td.ps-row3.ps-col1:click {
+	background-color: red;
+}
+table.ps-table2 tr td.mmps_here,
+table.ps-table3 *! td.mmps_here,
+table.ps-table4 tr td.ps-col2,
+table.ps-table5! tr td.mmps_here:hover {
+	background-color: #ccc;
+}
+table.ps-table5! tr td.ps-row1.ps-col1:hover {
+	background-color: blue;
+}
+table.ps-table5! tr td.ps-row3.ps-col3:hover {
+	background-color: green;
+}
+table.ps-table6 {
+	background-color: Khaki;
+}
+table.ps-table6 tr:hover! td.mmps_here {
+	background-color: Yellow;
+}
+table.ps-table6 tr! td.mmps_here:hover {
+	background-color: Lime;
+}
+table.ps-table7 {
+	background-color: #eee;
+}
+table.ps-table7 tr! td.ps-row3.ps-col3:mouseout {
+	background-color: Salmon;
+}
+table.ps-table7 tr! td.ps-row3.ps-col1:mousedown {
+	background-color: PeachPuff;
+}
+.mmps_before,.mmps_after,.mmps_first_line,.mmps_first_letter {
+	background-color: #f0fff0;
+}
+p.ps-para8::before! .mmps_before {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/bluearrow-16x14.jpg');
+}
+p.ps-para8::after! .mmps_after {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg');
+}
+p.ps-para8::first-line! .mmps_first_line {
+	font-weight: bold;
+}
+p.ps-para8::first-letter! .mmps_first_letter {
+	font-weight: bold;
+	font-size: 20pt;
+}
+.mmps_blue_arrow,.mmps_red_arrow {
+	background-color: #f0f0ff;
+}
+p.ps-para9::after! .mmps_blue_arrow:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/bluearrow-16x14.jpg');
+}
+p.ps-para9::after! .mmps_red_arrow:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg');
+}
+p.ps-para9c::after! .mmps_blue_arrow:click {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/bluearrow-16x14.jpg');
+}
+p.ps-para9c::after! .mmps_red_arrow:click {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg');
+}
+.ps-para10 *! a:link {
+	background-color: #a0e0a0;
+}
+.ps-para10 *! a:visited {
+	background-color: #ff4040;
+}
+.ps-para10 *! a:focus {
+	background-color: #efe0e0;
+}
+.ps-para10 *! a:hover {
+	background-color: #fff0f0;
+}
+.ps-para10 *! a:active {
+	background-color: #f0ffff;
+}
+li.mmps_quick { margin-left: 30px; }
+li.mmps_quick a[href^="#"],
+li.mmps_quick a[href*="www.militantmoderates.org"] {
+	margin-right: 6px;
+}
+li.mmps_quick::after! a[href^="#"]:hover,
+li.mmps_quick::after! a[href*="www.militantmoderates.org"]:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg') ' Click';
+}
+p.mmps_quick > a {
+	margin-right: 4px;
+}
+p.mmps_quick::after! a:hover {
+	content: url('http://www.militantmoderates.org/wp-content/uploads/2015/06/redarrow-16x14.jpg') ' Click';
+}
