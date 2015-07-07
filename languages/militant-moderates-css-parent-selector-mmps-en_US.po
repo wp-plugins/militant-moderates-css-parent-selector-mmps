@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Militant Moderates CSS Parent Selector MMPS 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/militant-moderates-css-parent-selector-mmps\n"
-"POT-Creation-Date: 2015-07-06 05:35-0400\n"
-"PO-Revision-Date: 2015-07-06 05:35-0400\n"
+"POT-Creation-Date: 2015-07-07 06:07-0400\n"
+"PO-Revision-Date: 2015-07-07 06:08-0400\n"
 "Last-Translator: MM Techmaster <techmaster@militantmoderates.org>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -18,17 +18,17 @@ msgstr ""
 #. translators: Link Text for the plugin's settings page
 #: mmParentSelector.php:108
 msgid "Settings"
-msgstr "Settings"
+msgstr ""
 
 #. translators: Formal Display name of the plugin
 #: mmParentSelector.php:174 mmParentSelector.php:278 mmParentSelector.php:290
 msgid "Militant Moderates Parent Selector (MMPS)"
-msgstr "Militant Moderates Parent Selector (MMPS)"
+msgstr ""
 
 #. translators: Abbreviation for MMPS (probably does not need to change)
 #: mmParentSelector.php:176
 msgid "MMPS"
-msgstr "MMPS"
+msgstr ""
 
 #. translators: Settings Section Heading for the inclusion settings
 #: mmParentSelector.php:189
@@ -50,18 +50,18 @@ msgstr "Search Inline CSS rules?"
 #. translators: Settings Section Heading for the MMPS custom rules
 #: mmParentSelector.php:217
 msgid "Site-wide Normal and Parent Selector CSS Rules"
-msgstr "Site-wide Normal and Parent Selector CSS Rules"
+msgstr ""
 
 #. translators: Name of text area that holds MMPS custom CSS rules
 #: mmParentSelector.php:224
 msgid "Site-wide CSS rules:"
-msgstr "Site-wide CSS rules:"
+msgstr ""
 
 #. translators: Description of the textarea to hold page or post specific CSS
 #. rules
 #: mmParentSelector.php:237
 msgid "MMPS Normal and Parent Selector CSS"
-msgstr "MMPS Normal and Parent Selector CSS"
+msgstr ""
 
 #. translators: %s will be replaced with $post->post_type ('page' or 'post')
 #: mmParentSelector.php:249
@@ -69,19 +69,17 @@ msgid ""
 "The Normal and Parent Selector CSS Rules entered here will always be scanned by MMPS and will always be "
 "applied to this %s."
 msgstr ""
-"The Normal and Parent Selector CSS Rules entered here will always be scanned by MMPS and will always be "
-"applied to this %s."
 
 #. translators: Error message to user
 #: mmParentSelector.php:281
 msgid "You do not have permission to change these options."
-msgstr "You do not have permission to change these options."
+msgstr ""
 
 #. translators: Polite heading asking the user to Review the plugin at
 #. WordPress.org
 #: mmParentSelector.php:293
 msgid "Please review this plugin:"
-msgstr "Please review this plugin:"
+msgstr ""
 
 #. translators: The word 'Review' after translation MUST be surrounded by %s
 #: mmParentSelector.php:297
@@ -89,8 +87,6 @@ msgid ""
 "We work very hard to create the very best in tools and utilities. Please consider leaving a %s Review %s "
 "to let us know how we're doing"
 msgstr ""
-"We work very hard to create the very best in tools and utilities. Please consider leaving a %s Review %s "
-"to let us know how we're doing"
 
 #. translators: Button text to save settings
 #: mmParentSelector.php:305
@@ -124,8 +120,6 @@ msgid ""
 "The Site-wide CSS Rules will be applied to the entire web site and may include both Normal and Parent "
 "Selector rules. The rules entered here will always be searched for Parent Selectors."
 msgstr ""
-"The Site-wide CSS Rules will be applied to the entire web site and may include both Normal and Parent "
-"Selector rules. The rules entered here will always be searched for Parent Selectors."
 
 #. translators: Instructions for a Checkbox setting
 #: mmParentSelector.php:330
@@ -139,24 +133,22 @@ msgstr "Check this option to search all Inline CSS Styles for Parent Selectors"
 
 #. Plugin Name of the plugin/theme
 msgid "Militant Moderates CSS Parent Selector MMPS"
-msgstr "Militant Moderates CSS Parent Selector MMPS"
+msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid "http://www.militantmoderates.org/mmps-quick-start/"
-msgstr "http://www.militantmoderates.org/mmps-quick-start/"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
 "Adds CSS \"Parent Selector\" support to your Theme. Apply your CSS Style to Parent/Sibling elements not "
 "just the Selected element."
 msgstr ""
-"Adds CSS \"Parent Selector\" support to your Theme. Apply your CSS Style to Parent/Sibling elements not "
-"just the Selected element."
 
 #. Author of the plugin/theme
 msgid "MM Techmaster"
-msgstr "MM Techmaster"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://profiles.wordpress.org/mmtechmaster"
-msgstr "https://profiles.wordpress.org/mmtechmaster"
+msgstr ""
