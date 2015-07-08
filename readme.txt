@@ -42,6 +42,9 @@ Yes. MMPS will always search within its own custom CSS rules, but it can be conf
 2. This screenshot shows the MMPS plugin settings screen where you add custom CSS and Parent Selector Rules to your site. The custom CSS Rules are applied to your site exactly as any other CSS Rules, however any Parent Selector Rules will also be processed by MMPS. If you have added Parent Selector Rules to other CSS sources then you can also configure MMPS to scan them as well.
 
 == Changelog ==
+= 1.2.3 (development) =
+* (changes are pending)
+
 = 1.2.2 =
 * Fixed link from Plugin admin to MMPS Settings - 'MMPS' was not highlighted in the Settings menu.
 * Added a 'Please Review' section and link at the top of the Settings page.
